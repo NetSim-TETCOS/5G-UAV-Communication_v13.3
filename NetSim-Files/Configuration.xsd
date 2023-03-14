@@ -1,0 +1,2442 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema
+	attributeFormDefault="unqualified"
+	elementFormDefault="qualified"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	>
+	<xs:include schemaLocation="NetSim_Common_type.xsd"/>
+	<xs:include schemaLocation="LTENR.xsd"/>
+	<xs:include schemaLocation="Satellite.xsd"/>
+
+	<xs:simpleType name="Distribution">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="CONSTANT" />
+					<xs:enumeration value="EXPONENTIAL" />
+					<xs:enumeration value="UNIFORM" />
+					<xs:enumeration value="NORMAL"/>
+					<xs:enumeration value="Weibull"/>
+					<xs:enumeration value="FISHER-TIPPETT"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="[Cc][Oo][Nn][Ss][Tt][Aa][Nn][Tt]" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<xs:simpleType name="BER">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[-+]?[0-9]*\.?[0-9]*\*[-+]?[0-9]*\.?[0-9]*\^[-+]?[0-9]*\.?[0-9]*"/>
+			<xs:pattern value="[-+]?[0-9]*\.?[0-9]*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LinkMode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FULL_DUPLEX" />
+			<xs:enumeration value="HALF_DUPLEX" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LinkType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="POINT_TO_POINT" />
+			<xs:enumeration value="POINT_TO_MULTIPOINT" />
+			<xs:enumeration value="MULTIPOINT_TO_MULTIPOINT" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="VideoModel">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CONTINUOUS_NORMAL_VBR" />
+			<xs:enumeration value="CONTINUOUS_STATE_AUTOREGRESSIVE_MARKOV" />
+			<xs:enumeration value="QUANTIZED_STATE_CONTINUOUS_TIME_MARKOV" />
+			<xs:enumeration value="SIMPLE_IPB_COMPOSITE_MODEL" />
+			<xs:enumeration value="INDEPENDENT_GAUSSIAN" />
+			<xs:enumeration value="FIRST_ORDER_DEPENDENT_GAUSSIAN"/>
+			<xs:enumeration value="H_261" />
+			<xs:enumeration value="H_263" />
+			<xs:enumeration value="MPEG1_Low_Res" />
+			<xs:enumeration value="MPEG1_High_Res"/>
+			<xs:enumeration value="MPEG2_Low_Res" />
+			<xs:enumeration value="MPEG2_High_Res"/>
+			<xs:enumeration value="BUFFERED_VIDEO_STREAMING_1"/>
+			<xs:enumeration value="BUFFERED_VIDEO_STREAMING_2"/>
+			<xs:enumeration value="BUFFERED_VIDEO_STREAMING_3"/>
+			<xs:enumeration value="BUFFERED_VIDEO_STREAMING_4"/>
+			<xs:enumeration value="BUFFERED_VIDEO_STREAMING_5"/>
+			<xs:enumeration value="BUFFERED_VIDEO_STREAMING_6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TrafficType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="VOICE" />
+			<xs:enumeration value="DATA" />
+			<xs:enumeration value="CBR" />
+			<xs:enumeration value="VIDEO" />
+			<xs:enumeration value="DATABASE" />
+			<xs:enumeration value="FTP" />
+			<xs:enumeration value="HTTP" />
+			<xs:enumeration value="COAP" />
+			<xs:enumeration value="CUSTOM" />
+			<xs:enumeration value="PEER_TO_PEER" />
+			<xs:enumeration value="EMAIL" />
+			<xs:enumeration value="ERLANG_CALL" />
+			<xs:enumeration value="EMULATION"/>
+			<xs:enumeration value="SENSOR_APP"/>
+			<xs:enumeration value="BSM"/>
+			<xs:enumeration value="INTERACTIVE GAMING"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MEDIUM">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="WIRED" />
+			<xs:enumeration value="WIRELESS" />
+			<xs:enumeration value="Wired" />
+			<xs:enumeration value="Wireless" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Connection_Mode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FULL_DUPLEX" />
+			<xs:enumeration value="HALF_DUPLEX" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ONOFF">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[Oo][Nn]" />
+			<xs:pattern value="[Oo][Ff][Ff]" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="HFVHFUHF">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="[Hh][Ff]" />
+			<xs:pattern value="[Vv][Hh][Ff]" />
+			<xs:pattern value="[Uu][Hh][Ff]" />
+			<xs:pattern value="S-BAND"/>
+			<xs:pattern value="L-BAND"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ProtocolName">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TCP" />
+			<xs:enumeration value="UDP" />
+			<xs:enumeration value="IEEE802.15.4" />
+			<xs:enumeration value="IEEE802.11" />
+			<xs:enumeration value="ETHERNET" />
+			<xs:enumeration value="ARP" />
+			<xs:enumeration value="RIP" />
+			<xs:enumeration value="OSPF" />
+			<xs:enumeration value="BGP" />
+			<xs:enumeration value="MPLS" />
+			<xs:enumeration value="POINT_TO_POINT" />
+			<xs:enumeration value="IEEE802.22" />
+			<xs:enumeration value="PROTOCOL_METRICS" />
+			<xs:enumeration value="IPV4" />
+			<xs:enumeration value="IPV6" />
+			<xs:enumeration value="GSM" />
+			<xs:enumeration value="CDMA" />
+			<xs:enumeration value="LTE" />
+			<xs:enumeration value="ADVANCE_LTE"/>
+			<xs:enumeration value="LTE_NR"/>
+			<xs:enumeration value="WIMAX"/>
+			<xs:enumeration value="TDMA"/>
+			<xs:enumeration value="DTDMA"/>
+			<xs:enumeration value="PROTOCOL_APPLICATION"/>
+			<xs:enumeration value="ZRP"/>
+			<xs:enumeration value="OLSR"/>
+			<xs:enumeration value="IEEE802.16"/>
+			<xs:enumeration value="PURE_ALOHA"/>
+			<xs:enumeration value="SLOTTED_ALOHA"/>
+			<xs:enumeration value="CSMA_CD"/>
+			<xs:enumeration value="TOKEN_BUS"/>
+			<xs:enumeration value="TOKEN_RING"/>
+			<xs:enumeration value="IEEE1609"/>
+			<xs:enumeration value="WSMP"/>
+			<xs:enumeration value="OPEN_FLOW"/>
+			<xs:enumeration value="MOBILITY"/>
+			<xs:enumeration value="SATELLITE"/>
+			<xs:enumeration value="RTP"/>
+			<xs:enumeration value="ACOUSTIC_PHY"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Layer">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="APPLICATION_LAYER" />
+			<xs:enumeration value="TRANSPORT_LAYER" />
+			<xs:enumeration value="NETWORK_LAYER" />
+			<xs:enumeration value="DATALINK_LAYER" />
+			<xs:enumeration value="PHYSICAL_LAYER" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Device">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NODE" />
+			<xs:enumeration value="PANCOORDINATOR" />
+			<xs:enumeration value="SENSOR" />
+			<xs:enumeration value="SINKNODE" />
+			<xs:enumeration value="SWITCH" />
+			<xs:enumeration value="ROUTER" />
+			<xs:enumeration value="ACCESSPOINT" />
+			<xs:enumeration value="BASE_STATION" />
+			<xs:enumeration value="EMULATED_NODE" />
+			<xs:enumeration value="MS" />
+			<xs:enumeration value="MSC"/>
+			<xs:enumeration value="UE"/>
+			<xs:enumeration value="MME"/>
+			<xs:enumeration value="EPC"/>
+			<xs:enumeration value="ENB"/>
+			<xs:enumeration value="GNB"/>
+			<xs:enumeration value="RELAY"/>
+			<xs:enumeration value="SS"/>
+			<xs:enumeration value="HUB"/>
+			<xs:enumeration value="CONCENTRATOR"/>
+			<xs:enumeration value="SATELLITE"/>
+			<xs:enumeration value="SATELLITE_GW"/>
+			<xs:enumeration value="SATELLITE_UT"/>
+			<xs:enumeration value="UT_ROUTER"/>
+			<xs:enumeration value="UPF"/>
+			<xs:enumeration value="AMF"/>
+			<xs:enumeration value="SMF"/>
+			<xs:enumeration value="SMF"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DeviceType">
+		<!--Used by GUI only. Backend wont read this property-->
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="WIREDNODE" />
+			<xs:enumeration value="WIRELESSNODE" />
+			<xs:enumeration value="BRIDGE_WIREDNODE" />
+			<xs:enumeration value="BRIDGE_WIRELESSNODE" />
+			<xs:enumeration value="L2_SWITCH" />
+			<xs:enumeration value="L3_SWITCH" />
+			<xs:enumeration value="ROUTER" />
+			<xs:enumeration value="ACCESSPOINT" />
+			<xs:enumeration value="PURE_ALOHA_NODE"/>
+			<xs:enumeration value="SLOTTED_ALOHA_NODE"/>
+			<xs:enumeration value="TOKEN_RING_WIREDNODE"/>
+			<xs:enumeration value="TOKEN_BUS_WIREDNODE"/>
+			<xs:enumeration value="CSMA_CD_WIREDNODE"/>
+			<xs:enumeration value="MOBILE_STATION_GSM"/>
+			<xs:enumeration value="MSC_GSM"/>
+			<xs:enumeration value="BTS_GSM"/>
+			<xs:enumeration value="MOBILE_STATION_CDMA"/>
+			<xs:enumeration value="MSC_CDMA"/>
+			<xs:enumeration value="BTS_CDMA"/>
+			<xs:enumeration value="Agent" />
+			<xs:enumeration value="IOT_Sensors" />
+			<xs:enumeration value="IOT_ROUTER" />
+			<xs:enumeration value="LOWPAN_Gateway" />
+			<xs:enumeration value="ZIGBEE_WIRELESSNODE" />
+			<xs:enumeration value="PAN_COORDINATOR" />
+			<xs:enumeration value="CR_CPE" />
+			<xs:enumeration value="CR_BS" />
+			<xs:enumeration value="Sensors" />
+			<xs:enumeration value="SinkNode" />
+			<xs:enumeration value="Incumbent" />
+			<xs:enumeration value="LTE_UE"/>
+			<xs:enumeration value="LTE_gNB"/>
+			<xs:enumeration value="LTE_EPC"/>
+			<xs:enumeration value="LTE_D2D_UE"/>
+			<xs:enumeration value="LTE_NR_UE"/>
+			<xs:enumeration value="LTE_VANET_UE"/>
+			<xs:enumeration value="LTE_MME"/>
+			<xs:enumeration value="LTE_eNB"/>
+			<xs:enumeration value="WiMax_SS"/>
+			<xs:enumeration value="WiMax_BS"/>
+			<xs:enumeration value="LTE_RELAY"/>
+			<xs:enumeration value="LTE_HNB"/>
+			<xs:enumeration value="LTE_HNBGATEWAY"/>
+			<xs:enumeration value="HUB_TOKEN_BUS"/>
+			<xs:enumeration value="HUB_CSMA_CD"/>
+			<xs:enumeration value="CONCENTRATOR"/>
+			<xs:enumeration value="VANET_WIRELESSNODE"/>
+			<xs:enumeration value="SATELLITE"/>
+			<xs:enumeration value="SATELLITE_UT"/>
+			<xs:enumeration value="SATELLITE_GW"/>
+			<xs:enumeration value="RSU"/>
+			<xs:enumeration value="UT_ROUTER"/>
+			<xs:enumeration value="UPF"/>
+			<xs:enumeration value="SMF"/>
+			<xs:enumeration value="AMF"/>
+			<xs:enumeration value="L2_SWITCH_UPF"/>
+			<xs:enumeration value="L2_SWITCH_AMF"/>
+			<xs:enumeration value="L2_SWITCH_gNB"/>
+			<xs:enumeration value="UWAN_NODE"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="InterfaceType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="WAN" />
+			<xs:enumeration value="WLAN" />
+			<xs:enumeration value="ETHERNET" />
+			<xs:enumeration value="ZIGBEE" />
+			<xs:enumeration value="COGNITIVE_RADIO" />
+			<xs:enumeration value="GSM" />
+			<xs:enumeration value="CDMA" />
+			<xs:enumeration value="LTE" />
+			<xs:enumeration value="ADVANCE_LTE"/>
+			<xs:enumeration value="LTE_NR"/>
+			<xs:enumeration value="WIMAX"/>
+			<xs:enumeration value="GSM1" />
+			<xs:enumeration value="CDMA1" />
+			<xs:enumeration value="LTE_S1" />
+			<xs:enumeration value="LTE1" />
+			<xs:enumeration value="WIRELESS1"/>
+			<xs:enumeration value="WIRELESS"/>
+			<xs:enumeration value="TOKENRING"/>
+			<xs:enumeration value="TOKENBUS"/>
+			<xs:enumeration value="SERIAL"/>
+			<xs:enumeration value="SATELLITE"/>
+			<xs:enumeration value="5G_N4"/>
+			<xs:enumeration value="5G_N3"/>
+			<xs:enumeration value="5G_N1_N2"/>
+			<xs:enumeration value="5G_XN"/>
+			<xs:enumeration value="5G_N11"/>
+			<xs:enumeration value="5G_RAN"/>
+			<xs:enumeration value="5G_N6"/>
+			<xs:enumeration value="ACOUSTIC"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Wireshark_Option">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="DISABLE"/>
+					<xs:enumeration value="ONLINE"/>
+					<xs:enumeration value="OFFLINE"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="[Dd][Ii][Ss][Aa][Bb][Ll][Ee]"/>
+					<xs:pattern value="[Oo][Nn][Ll][Ii][Nn][Ee]"/>
+					<xs:pattern value="[Oo][Ff][Ff][Ll][Ii][Nn][Ee]"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<xs:simpleType name="IPAddress">
+		<xs:union>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="(([0-9]|[0-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]))" />
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:maxLength value="0"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:union>
+	</xs:simpleType>
+	<xs:element name="TETCOS_NETSIM">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="EXPERIMENT_INFORMATION">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="VERSION" type="xs:string" default="NetSim Standard 6.0" maxOccurs="1" minOccurs="0" />
+							<xs:element name="NUMBER" type="xs:string" default="10.0.0" maxOccurs="1" minOccurs="0"/>
+							<xs:element name="USER" type="xs:string" maxOccurs="1" minOccurs="0" default="admin" />
+							<xs:element name="NAME" type="xs:string" maxOccurs="1" minOccurs="0" />
+							<xs:element name="DATE" type="xs:string" maxOccurs="1" minOccurs="0" />
+							<xs:element name="COMMENT" type="xs:string" maxOccurs="1" minOccurs="0" />
+							<xs:element name="OPTION" type="xs:string" maxOccurs="1" minOccurs="0" />
+							<xs:element name="SAORNSA" type="xs:string" maxOccurs="1" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="GUI_INFORMATION" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="ENVIRONMENT_VIEWTYPE" type="xs:string" maxOccurs="1" minOccurs="0" />
+							<xs:element name="MAP_POSITION" type="xs:string" maxOccurs="1" minOccurs="0" default="admin" />
+							<xs:element name="ZOOM_LEVEL" type="xs:string" maxOccurs="1" minOccurs="0" />
+							<xs:element name="NETWORK_NAME" type="xs:string" maxOccurs="1" minOccurs="1" />
+							<xs:element name="ENVIRONMENT_LENGTH" type="xs:string" maxOccurs="1" minOccurs="0" />
+							<xs:element name="LATITUDE" type="xs:string" maxOccurs="1" minOccurs="0" />
+							<xs:element name="LONGITUDE" type="xs:string" maxOccurs="1" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="NETWORK_CONFIGURATION" maxOccurs="1" minOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="DEVICE_CONFIGURATION" minOccurs="1" maxOccurs="1">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element maxOccurs="unbounded" name="DEVICE">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:choice>
+														<xs:element name="POS_3D" minOccurs="0" maxOccurs="1">
+															<xs:complexType>
+																<xs:sequence>
+																	<xs:element name="NODE_JOIN_PROFILE" maxOccurs="1" minOccurs="0">
+																		<xs:complexType>
+																			<xs:attribute name="JOIN_AT" type="xs:string" use="required" />
+																			<xs:attribute name="LEAVE_AT" type="xs:string" use="optional" />
+																		</xs:complexType>
+																	</xs:element>
+																	<xs:element name="MOBILITY" maxOccurs="1" minOccurs="0">
+																		<xs:complexType>
+																			<xs:attribute name="MODEL" type="MobilityModel" use="required" />
+																			<xs:attribute name="VELOCITY" type="xs:integer" use="optional" />
+																			<xs:attribute name="PAUSE_TIME" type="xs:integer" use="optional" />
+																			<xs:attribute name="CALCULATION_INTERVAL" type="xs:double" use="optional"/>
+																			<xs:attribute name="GROUP_ID" type="xs:positiveInteger" use="optional"/>
+																			<xs:attribute name="FILE_NAME" type="xs:string" use="optional"/>
+																			<xs:attribute name="STEP_SIZE" type="xs:string" use="optional"/>
+																			<xs:attribute name="MAX_SPEED_M_S" type="xs:double" use="optional" />
+																			<xs:attribute name="MIN_SPEED_M_S" type="xs:double" use="optional" />
+																			<xs:attribute name="STOP_PROBABILITY" type="xs:double" use="optional" />
+																			<xs:attribute name="STOP_DURATION_S" type="xs:integer" use="optional" />
+																			<xs:attribute name="OPEN_MOBILITY_FILE" type="xs:string" use="optional" />
+																		</xs:complexType>
+																	</xs:element>
+																</xs:sequence>
+																<xs:attribute name="X-POS" type="xs:double" use="optional" />
+																<xs:attribute name="Y-POS" type="xs:double" use="optional" />
+																<xs:attribute name="Z-POS" type="xs:double" use="optional" />
+																<xs:attribute name="X_OR_LON" type="xs:double" use="optional" />
+																<xs:attribute name="Y_OR_LAT" type="xs:double" use="optional" />
+																<xs:attribute name="Z" type="xs:double" use="optional" />
+															</xs:complexType>
+														</xs:element>
+														<xs:element name="POS_MAP" minOccurs="0" maxOccurs="1">
+															<xs:complexType>
+																<xs:sequence>
+																	<xs:element name="NODE_JOIN_PROFILE" maxOccurs="1" minOccurs="0">
+																		<xs:complexType>
+																			<xs:attribute name="JOIN_AT" type="xs:string" use="required" />
+																			<xs:attribute name="LEAVE_AT" type="xs:string" use="optional" />
+																		</xs:complexType>
+																	</xs:element>
+																	<xs:element name="MOBILITY" maxOccurs="1" minOccurs="0">
+																		<xs:complexType>
+																			<xs:attribute name="MODEL" type="MobilityModel" use="required" />
+																			<xs:attribute name="VELOCITY" type="xs:integer" use="optional" />
+																			<xs:attribute name="PAUSE_TIME" type="xs:integer" use="optional" />
+																			<xs:attribute name="CALCULATION_INTERVAL" type="xs:double" use="optional"/>
+																			<xs:attribute name="GROUP_ID" type="xs:positiveInteger" use="optional"/>
+																			<xs:attribute name="FILE_NAME" type="xs:string" use="optional"/>
+																			<xs:attribute name="STEP_SIZE" type="xs:string" use="optional"/>
+																			<xs:attribute name="MAX_SPEED_M_S" type="xs:double" use="optional" />
+																			<xs:attribute name="MIN_SPEED_M_S" type="xs:double" use="optional" />
+																			<xs:attribute name="STOP_PROBABILITY" type="xs:double" use="optional" />
+																			<xs:attribute name="STOP_DURATION_S" type="xs:integer" use="optional" />
+																		</xs:complexType>
+																	</xs:element>
+																</xs:sequence>
+																<xs:attribute name="X_OR_LON" type="xs:double" use="required" />
+																<xs:attribute name="Y_OR_LAT" type="xs:double" use="required" />
+																<xs:attribute name="Z" type="xs:double" use="required" />
+															</xs:complexType>
+														</xs:element>
+														<xs:element name="POS_GEO" minOccurs="0" maxOccurs="1">
+															<xs:complexType>
+																<xs:sequence>
+																	<xs:element name="NODE_JOIN_PROFILE" maxOccurs="1" minOccurs="0">
+																		<xs:complexType>
+																			<xs:attribute name="JOIN_AT" type="xs:string" use="required" />
+																			<xs:attribute name="LEAVE_AT" type="xs:string" use="optional" />
+																		</xs:complexType>
+																	</xs:element>
+																	<xs:element name="MOBILITY" maxOccurs="1" minOccurs="0">
+																		<xs:complexType>
+																			<xs:attribute name="MODEL" type="MobilityModel" use="required" />
+																			<xs:attribute name="VELOCITY" type="xs:integer" use="optional" />
+																			<xs:attribute name="CALCULATION_INTERVAL" type="xs:double" use="optional"/>
+																			<xs:attribute name="PAUSE_TIME" type="xs:integer" use="optional" />
+																			<xs:attribute name="GROUP_ID" type="xs:positiveInteger" use="optional"/>
+																		</xs:complexType>
+																	</xs:element>
+																</xs:sequence>
+																<xs:attribute name="LON" type="xs:double" use="required" />
+																<xs:attribute name="LAT" type="xs:double" use="required" />
+																<xs:attribute name="ALTITUDE" type="xs:double" use="required" />
+																<xs:attribute name="REFERENCE_ELLIPSOID" use="required">
+																	<xs:simpleType>
+																		<xs:restriction base="xs:string">
+																			<xs:enumeration value="SPHERE"/>
+																			<xs:enumeration value="WGS84"/>
+																			<xs:enumeration value="GRS80"/>
+																		</xs:restriction>
+																	</xs:simpleType>
+																</xs:attribute>
+															</xs:complexType>
+														</xs:element>
+													</xs:choice>
+													<xs:element name="INTERFACE" maxOccurs="unbounded" minOccurs="1">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element maxOccurs="3" name="LAYER" minOccurs="2">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element minOccurs="0" name="NETWORK_PROTOCOL" maxOccurs="unbounded">
+																				<xs:complexType>
+																					<xs:sequence>
+																						<xs:element name="PROTOCOL_PROPERTY" minOccurs="0">
+																							<xs:complexType>
+																								<xs:attribute name="IP_ADDRESS" type="IPAddress" use="optional" />
+																								<xs:attribute name="PREFIX_LENGTH" type="xs:positiveInteger" use="optional"/>
+																								<xs:attribute name="SUBNET_MASK" type="IPAddress" use="optional" />
+																								<xs:attribute name="DEFAULT_GATEWAY" type="IPAddress" use="optional" />
+																								<xs:attribute name="BUFFER_SIZE" type="xs:positiveInteger" use="optional" />
+																								<xs:attribute name="SCHEDULING_TYPE" use="optional">
+																									<xs:simpleType>
+																										<xs:restriction base="xs:string">
+																											<xs:enumeration value="FIFO" />
+																											<xs:enumeration value="PRIORITY" />
+																											<xs:enumeration value="ROUND_ROBIN" />
+																											<xs:enumeration value="WFQ" />
+																											<xs:enumeration value="EDF" />
+																											<xs:enumeration value="CLASS_BASED"/>
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																								<xs:attribute name="BUFFER_PLOT" use="optional">
+																									<xs:simpleType>
+																										<xs:restriction base="xs:string">
+																											<xs:enumeration value="TRUE" />
+																											<xs:enumeration value="FALSE" />
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+
+																								<xs:attribute name="MAX_LATENCY_UGS_MS" use="optional" type="xs:double"/>
+																								<xs:attribute name="MAX_LATENCY_rtPS_MS" use="optional" type="xs:double"/>
+																								<xs:attribute name="MAX_LATENCY_ertPS_MS" use="optional" type="xs:double"/>
+																								<xs:attribute name="MAX_LATENCY_nrtPS_MS" use="optional" type="xs:double"/>
+																								<xs:attribute name="MAX_LATENCY_BE_MS" use="optional" type="xs:double"/>
+																								<xs:attribute name="QUEUING_TYPE" use="optional">
+																									<xs:simpleType>
+																										<xs:restriction base="xs:string">
+																											<xs:enumeration value="DROP_TAIL" />
+																											<xs:enumeration value="RED" />
+																											<xs:enumeration value="WRED" />
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																								<xs:attribute name="MAX_TH_MB" use="optional" type="xs:double"/>
+																								<xs:attribute name="MIN_TH_MB" use="optional" type="xs:double"/>
+																								<xs:attribute name="MAX_P" use="optional">
+																									<xs:simpleType>
+																										<xs:restriction base="xs:double">
+																											<xs:minInclusive value="0" />
+																											<xs:maxInclusive value="1" />
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																								<xs:attribute name="WQ" use="optional">
+																									<xs:simpleType>
+																										<xs:restriction base="xs:double">
+																											<xs:minInclusive value="0"/>
+																											<xs:maxInclusive value="1"/>
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																								<xs:attribute name="LOW_MAX_P" use="optional">
+																									<xs:simpleType>
+																										<xs:restriction base="xs:double">
+																											<xs:minInclusive value="0"/>
+																											<xs:maxInclusive value="1"/>
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																								<xs:attribute name="NORMAL_MAX_P" use="optional">
+																									<xs:simpleType>
+																										<xs:restriction base="xs:double">
+																											<xs:minInclusive value="0"/>
+																											<xs:maxInclusive value="1"/>
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																								<xs:attribute name="MEDIUM_MAX_P" use="optional">
+																									<xs:simpleType>
+																										<xs:restriction base="xs:double">
+																											<xs:minInclusive value="0"/>
+																											<xs:maxInclusive value="1"/>
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																								<xs:attribute name="HIGH_MAX_P" use="optional">
+																									<xs:simpleType>
+																										<xs:restriction base="xs:double">
+																											<xs:minInclusive value="0"/>
+																											<xs:maxInclusive value="1"/>
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																								<xs:attribute name="LOW_MAX_TH_MB" use="optional">
+																									<xs:simpleType>
+																										<xs:restriction base="xs:double">
+																											<xs:minInclusive value="0" />
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																								<xs:attribute name="LOW_MIN_TH_MB" use="optional">
+																									<xs:simpleType>
+																										<xs:restriction base="xs:double">
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																								<xs:attribute name="NORMAL_MAX_TH_MB" use="optional">
+																									<xs:simpleType>
+																										<xs:restriction base="xs:double">
+																											<xs:minInclusive value="0" />
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																								<xs:attribute name="NORMAL_MIN_TH_MB" use="optional">
+																									<xs:simpleType>
+																										<xs:restriction base="xs:double">
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																								<xs:attribute name="MEDIUM_MAX_TH_MB" use="optional">
+																									<xs:simpleType>
+																										<xs:restriction base="xs:double">
+																											<xs:minInclusive value="0" />
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																								<xs:attribute name="MEDIUM_MIN_TH_MB" use="optional">
+																									<xs:simpleType>
+																										<xs:restriction base="xs:double">
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																								<xs:attribute name="HIGH_MAX_TH_MB" use="optional">
+																									<xs:simpleType>
+																										<xs:restriction base="xs:double">
+																											<xs:minInclusive value="0" />
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																								<xs:attribute name="HIGH_MIN_TH_MB" use="optional">
+																									<xs:simpleType>
+																										<xs:restriction base="xs:double">
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																								<xs:attribute name="MAX_THROUGHPUT_LOW" use="optional">
+																									<xs:simpleType>
+																										<xs:restriction base="xs:double">
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																								<xs:attribute name="MAX_THROUGHPUT_NORMAL" use="optional">
+																									<xs:simpleType>
+																										<xs:restriction base="xs:double">
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																								<xs:attribute name="MAX_THROUGHPUT_MEDIUM" use="optional">
+																									<xs:simpleType>
+																										<xs:restriction base="xs:double">
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																								<xs:attribute name="MAX_THROUGHPUT_HIGH" use="optional">
+																									<xs:simpleType>
+																										<xs:restriction base="xs:double">
+																										</xs:restriction>
+																									</xs:simpleType>
+																								</xs:attribute>
+																							</xs:complexType>
+																						</xs:element>
+																					</xs:sequence>
+																					<xs:attribute name="SETPROPERTY" use="required" type="BOOL" />
+																					<xs:attribute name="NAME" use="required">
+																						<xs:simpleType>
+																							<xs:restriction base="xs:string">
+																								<xs:enumeration value="IPV4" />
+																								<xs:enumeration value="IPV6" />
+																							</xs:restriction>
+																						</xs:simpleType>
+																					</xs:attribute>
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element minOccurs="0" name="ROUTING_PROTOCOL">
+																				<xs:complexType>
+																					<xs:sequence>
+																						<xs:element name="PROTOCOL_PROPERTY" minOccurs="0" />
+																					</xs:sequence>
+																					<xs:attribute name="NAME" use="required" />
+																					<xs:attribute name="SETPROPERTY" use="required" type="BOOL" />
+																				</xs:complexType>
+																			</xs:element>
+																			<xs:element minOccurs="0" name="PROTOCOL" maxOccurs="unbounded">
+																				<xs:complexType>
+																					<xs:sequence>
+																						<xs:element ref="PROTOCOL_PROPERTY" maxOccurs="1" minOccurs="0"/>
+																					</xs:sequence>
+																					<xs:attribute name="NAME" type="ProtocolName" use="required"/>
+																					<xs:attribute name="SETPROPERTY" use="required" type="BOOL" />
+																					<xs:attribute name="MAC_ADDRESS" use="optional">
+																						<xs:simpleType>
+																							<xs:restriction base="xs:token">
+																								<xs:pattern value="[0-9a-fA-F]+" />
+																								<xs:length value="12" />
+																							</xs:restriction>
+																						</xs:simpleType>
+																					</xs:attribute>
+																				</xs:complexType>
+																			</xs:element>
+																		</xs:sequence>
+																		<xs:attribute name="TYPE" use="required" type="Layer" />
+																		<xs:attribute name="CONNECTION_MEDIUM" use="optional" type="MEDIUM" />
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+															<xs:attribute name="ID" type="xs:positiveInteger" use="required" />
+															<xs:attribute name="INTERFACE_TYPE" use="required" type="InterfaceType" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element maxOccurs="3" name="LAYER" minOccurs="0" >
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element minOccurs="0" maxOccurs="unbounded" name="PROTOCOL">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="PROTOCOL_PROPERTY" minOccurs="0" maxOccurs="unbounded">
+																				<xs:complexType>
+																					<!--OPEN FLOW Protocol-->
+																					<xs:group ref="LTE_NR_APP" minOccurs="1" maxOccurs="unbounded"/>
+																					<xs:attribute name="OPEN_FLOW_ENABLE" type="BOOL" use="optional"/>
+																					<xs:attribute name="SDN_CONTROLLER" type="BOOL" use="optional"/>
+																					<xs:attribute name="SDN_CONTROLLER_DEVICE" type="xs:string" use="optional"/>
+																					<xs:attribute name="GTP_U_COUNT" type="xs:string" use="optional"/>
+																					<xs:attribute name="GTP_C_COUNT" type="xs:string" use="optional"/>
+																					<xs:attribute name="PFCP_COUNT" type="xs:string" use="optional"/>
+																					<xs:attribute name="NGAP_COUNT" type="xs:string" use="optional"/>
+																					<xs:attribute name="MASTER_NODE_TYPE" type="xs:string" use="optional"/>
+																					<xs:attribute name="SECONDERY_NODE_TYPE" type="xs:string" use="optional"/>
+																					<xs:attribute name="SELECTED_OPTION_TYPE" type="xs:string" use="optional"/>
+																					<xs:attribute name="TYPE">
+																						<xs:simpleType>
+																							<xs:restriction base="xs:string">
+																								<xs:enumeration value="AMF"/>
+																								<xs:enumeration value="GNB"/>
+																								<xs:enumeration value="UPF"/>
+																								<xs:enumeration value="ENB"/>
+																								<xs:enumeration value="SMF"/>
+																							</xs:restriction>
+																						</xs:simpleType>
+																					</xs:attribute>
+																					<xs:attribute name="ISNSAENABLE">
+																						<xs:simpleType>
+																							<xs:restriction base="xs:string">
+																								<xs:enumeration value="TRUE"/>
+																								<xs:enumeration value="FALSE"/>
+																							</xs:restriction>
+																						</xs:simpleType>
+																					</xs:attribute>
+																					<xs:attribute name="SERIES_3GPP" use="optional">
+																						<xs:simpleType>
+																							<xs:restriction base="xs:string">
+																								<xs:enumeration value="36"/>
+																								<xs:enumeration value="38"/>
+																							</xs:restriction>
+																						</xs:simpleType>
+																					</xs:attribute>
+
+																					<!--TCP Properties-->
+																					<xs:attribute name="CONGESTION_ALGORITHM" use="optional">
+																						<xs:simpleType>
+																							<xs:restriction base="xs:string">
+																								<xs:enumeration value="OLD_TAHOE" />
+																								<xs:enumeration value="TAHOE" />
+																								<xs:enumeration value="RENO" />
+																								<xs:enumeration value="NEW_RENO" />
+																								<xs:enumeration value="BIC" />
+																								<xs:enumeration value="CUBIC" />
+																							</xs:restriction>
+																						</xs:simpleType>
+																					</xs:attribute>
+																					<xs:attribute name="CONGESTION_PLOT" use="optional">
+																						<xs:simpleType>
+																							<xs:restriction base="xs:string">
+																								<xs:enumeration value="TRUE" />
+																								<xs:enumeration value="FALSE" />
+																							</xs:restriction>
+																						</xs:simpleType>
+																					</xs:attribute>
+																					<xs:attribute name="INITIAL_SSTHRESH" use="optional"/>
+																					<xs:attribute name="TIME_WAIT_TIMER" use="optional" type="xs:double"/>
+																					<xs:attribute name="SACK_PERMITTED" use="optional" type="BOOL"/>
+																					<xs:attribute name="SELECTIVE_ACK" use="optional" type="BOOL"/>
+																					<xs:attribute name="SEGMENT_SIZE" use="optional" type="xs:nonNegativeInteger" />
+																					<xs:attribute name="TCP_MSS" use="optional">
+																						<xs:simpleType>
+																							<xs:restriction base="xs:integer">
+																								<xs:minInclusive value="0" />
+																								<xs:maxInclusive value="65535" />
+																							</xs:restriction>
+																						</xs:simpleType>
+																					</xs:attribute>
+																					<xs:attribute name="MAX_SYN_RETRIES" type="xs:positiveInteger" use="optional"/>
+																					<xs:attribute name="ACKNOWLEDGEMENT_TYPE" use="optional" type="xs:string" />
+																					<xs:attribute name="MAX_ACK_DELAY" use="optional" type="xs:positiveInteger"/>
+																					<xs:attribute name="WINDOW_SCALING" use="optional" type="BOOL"/>
+																					<xs:attribute name="EXPLICIT_CONGESTION_NOTIFICATION" use="optional" type="BOOL"/>
+																					<xs:attribute name="SHIFT_COUNT" use="optional" type="xs:int"/>
+																					<xs:attribute name="TIMESTAMP_OPTION" use="optional" type="BOOL"/>
+																					<xs:attribute name="LOW_WINDOW" use="optional" type="xs:positiveInteger"/>
+																					<xs:attribute name="MAX_INCREMENT" use="optional" type="xs:positiveInteger"/>
+																					<xs:attribute name="BETA" use="optional" type="xs:double"/>
+																					<xs:attribute name="SMOOTH_PART" use="optional" type="xs:positiveInteger"/>
+																					<xs:attribute name="BIC_SCALE" use="optional" type="xs:positiveInteger"/>
+																					<xs:attribute name="HYSTART_LOW_WINDOW" use="optional" type="xs:positiveInteger"/>
+																					<xs:attribute name="HYSTART_ACK_DELTA" use="optional" type="xs:positiveInteger"/>
+
+																					<!-- WSMP Protocol-->
+																					<xs:attribute name="WSM_MAX_LENGTH" use="optional">
+																						<xs:simpleType>
+																							<xs:restriction base="xs:positiveInteger">
+																								<xs:minInclusive value="1" />
+																								<xs:maxInclusive value="2302" />
+																							</xs:restriction>
+																						</xs:simpleType>
+																					</xs:attribute>
+																					<!--IP Layer property-->
+																					<xs:attributeGroup ref="IP_PROPERTY" />
+																				</xs:complexType>
+																			</xs:element>
+																		</xs:sequence>
+																		<xs:attribute name="NAME" type="ProtocolName" use="required" />
+																		<xs:attribute name="SETPROPERTY" type="BOOL" use="required" />
+																	</xs:complexType>
+																</xs:element>
+																<xs:element minOccurs="0" maxOccurs="unbounded" name="ROUTING_PROTOCOL">
+																	<xs:complexType>
+																		<xs:sequence>
+																			<xs:element name="PROTOCOL_PROPERTY" minOccurs="0">
+																				<xs:complexType>
+																					<xs:sequence>
+																						<xs:element name="INTERFACE" minOccurs="0" maxOccurs="unbounded">
+																							<xs:complexType>
+																								<xs:attributeGroup ref="OSPF_INTERFACE_PROPERTY"/>
+																							</xs:complexType>
+																						</xs:element>
+																					</xs:sequence>
+																					<!--DSR/AODV PROPERTY-->
+																					<xs:attribute name="ACK_TYPE" use="optional" >
+																						<xs:simpleType>
+																							<xs:restriction base="xs:string">
+																								<xs:enumeration value="NETWORK_LAYER_ACK" />
+																								<xs:enumeration value="LINK_LAYER_ACK" />
+																							</xs:restriction>
+																						</xs:simpleType>
+																					</xs:attribute>
+																					<!-- RIP PROPERTY-->
+																					<xs:attribute name="VERSION" use="optional">
+																						<xs:simpleType>
+																							<xs:restriction base="xs:positiveInteger">
+																								<xs:enumeration value="1" />
+																								<xs:enumeration value="2" />
+																								<xs:enumeration value="4" />
+																							</xs:restriction>
+																						</xs:simpleType>
+																					</xs:attribute>
+																					<xs:attribute name="UPDATE_TIMER" type="xs:nonNegativeInteger" use="optional" />
+																					<xs:attribute name="TIMEOUT_TIMER" type="xs:nonNegativeInteger" use="optional" />
+																					<xs:attribute name="GARBAGE_COLLECTION_TIMER" type="xs:nonNegativeInteger" use="optional" />
+																					<!--BGP Properties-->
+																					<xs:attribute name="AUTONOMOUS_SYSTEM_NUMBER" type="xs:nonNegativeInteger" use="optional" />
+																					<xs:attribute name="LOCAL_PREFERENCE" type="xs:nonNegativeInteger" use="optional" />
+																					<xs:attribute name="MULTI_EXIT_DISCRIMINATOR" type="xs:nonNegativeInteger" use="optional" />
+																					<xs:attribute name="CONNECTRETRYTIMER" type="xs:nonNegativeInteger" use="optional" />
+																					<xs:attribute name="HOLDTIMER" type="xs:nonNegativeInteger" use="optional" />
+																					<xs:attribute name="LARGE_HOLD_TIME" type="xs:nonNegativeInteger" use="optional" />
+																					<xs:attribute name="KEEPALIVETIMER" type="xs:nonNegativeInteger" use="optional" />
+																					<xs:attribute name="MINASORIGINATIONINTERVAL" type="xs:nonNegativeInteger" use="optional" />
+																					<xs:attribute name="MINEXTROUTEADVINTERVAL" type="xs:nonNegativeInteger" use="optional" />
+																					<xs:attribute name="MININTROUTEADVINTERVAL" type="xs:nonNegativeInteger" use="optional" />
+																					<xs:attribute name="DELAYOPENTIMER" type="xs:nonNegativeInteger" use="optional" />
+																					<xs:attribute name="IDLEHOLDTIMER" type="xs:nonNegativeInteger" use="optional" />
+
+																					<!-- OSPF PROPERTY-->
+																					<xs:attributeGroup ref="OSPFPROPERTY"/>
+																					<!-- ZRP/OLSR PROPERTY-->
+																					<xs:attribute name="HELLO_INTERVAL" use="optional" type="xs:nonNegativeInteger" />
+																					<xs:attribute name="REFERESH_INTERVAL" use="optional" type="xs:nonNegativeInteger" />
+																					<xs:attribute name="TC_INTERVAL" use="optional" type="xs:nonNegativeInteger" />
+																					<!-- ZRP only PROPERTY-->
+																					<xs:attribute name="IARP_PROTOCOL" use="optional" type="ProtocolName" />
+																					<xs:attribute name="ZONE_RADIUS" use="optional" type="xs:nonNegativeInteger" />
+
+																					<!-- RPL PROPERTY -->
+																					<xs:attributeGroup ref="RPL_PROPERTY"/>
+																				</xs:complexType>
+																			</xs:element>
+																		</xs:sequence>
+																		<xs:attribute name="NAME" use="required" />
+																		<xs:attribute name="SETPROPERTY" use="required" type="BOOL" />
+																	</xs:complexType>
+																</xs:element>
+															</xs:sequence>
+															<xs:attribute name="TYPE" type="Layer" use="required" />
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="TYPE" type="Device" use="required" />
+												<xs:attribute name="DEVICE_ID" type="xs:unsignedInt" use="required" />
+												<xs:attribute name="INTERFACE_COUNT" type="xs:unsignedByte" use="required" />
+												<xs:attribute name="DEVICE_NAME" type="xs:string" use="required" />
+												<xs:attribute name="DEFAULT_DEVICE_NAME" type="xs:string" use="optional" />
+												<xs:attribute name="DEVICE_TYPE" type="DeviceType" use="required" />
+												<xs:attribute name="DEVICE_IMAGE" type="xs:string" use="optional" />
+												<xs:attribute name="DEVICE_IMAGE_PATH" type="xs:string" use="optional" />
+												<xs:attribute name="WIRESHARK_OPTION" type="Wireshark_Option" use="optional"/>
+											</xs:complexType>
+											<xs:unique name="INTERFACE_ID_KEY">
+												<xs:selector xpath="INTERFACE" />
+												<xs:field xpath="@ID" />
+											</xs:unique>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="DEVICE_COUNT" />
+								</xs:complexType>
+								<!--Validation-->
+								<xs:unique name="DEVICE_NAME_KEY">
+									<xs:selector xpath="DEVICE" />
+									<xs:field xpath="@DEVICE_NAME" />
+								</xs:unique>
+								<xs:unique name="DEVICE_ID_KEY">
+									<xs:selector xpath="DEVICE" />
+									<xs:field xpath="@DEVICE_ID" />
+								</xs:unique>
+								<!--<xs:unique name="IP_ADDRESS_KEY">
+									<xs:selector xpath="DEVICE/INTERFACE/LAYER/NETWORK_PROTOCOL/PROTOCOL_PROPERTY" />
+									<xs:field xpath="@IP_ADDRESS" />
+								</xs:unique>-->
+								<xs:unique name="MAC_ADDRESS_KEY">
+									<xs:selector xpath="DEVICE/INTERFACE/LAYER/PROTOCOL/PROTOCOL_PROPERTY" />
+									<xs:field xpath="@MAC_ADDRESS" />
+								</xs:unique>
+							</xs:element>
+							<xs:element name="CONNECTION" minOccurs="0" maxOccurs="1">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="LINK" maxOccurs="unbounded" minOccurs="1">
+											<xs:complexType mixed="true">
+												<xs:sequence>
+													<xs:element name="DEVICE" minOccurs="1" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:attribute name="NAME" use="required" type="xs:string" />
+															<xs:attribute name="INTERFACE_ID" type="xs:int" />
+															<xs:attribute name="DEVICE_ID" type="xs:string" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="MEDIUM_PROPERTY" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:sequence>
+																<xs:element name="TEMPERATUREZONE" minOccurs="0" maxOccurs="unbounded">
+																	<xs:complexType>
+																		<xs:attribute name="Z" use="required" type="xs:double"/>
+																		<xs:attribute name="TEMPERATURE" use="required" type="xs:double"/>
+																	</xs:complexType>
+																</xs:element>
+																<xs:group ref="MARKOV_LOO_FADING_ELEMENT"/>
+															</xs:sequence>
+															<xs:attribute name="TEMPERATUREZONE_COUNT" use="optional" type="xs:nonNegativeInteger"/>
+															<xs:attribute name="SALINITY" use="optional" type="xs:double"/>
+															<xs:attribute name="WINDSPEED" use="optional" type="xs:double"/>
+															<xs:attribute name="SHIPPING" use="optional" type="xs:double"/>
+															<xs:attribute name="PROPAGATION_MEDIUM" use="optional">
+																<xs:simpleType>
+																	<xs:union>
+																		<xs:simpleType>
+																			<xs:restriction base="xs:string">
+																				<xs:enumeration value="AIR"/>
+																				<xs:enumeration value="ACOUSTICS"/>
+																			</xs:restriction>
+																		</xs:simpleType>
+																		<xs:simpleType>
+																			<xs:restriction base="xs:string">
+																				<xs:pattern value="[Aa][Ii][Rr]"/>
+																				<xs:pattern value="[Aa][Cc][Oo][Uu][Ss][Tt][Ii][Cc][Ss]"/>
+																			</xs:restriction>
+																		</xs:simpleType>
+																	</xs:union>
+																</xs:simpleType>
+															</xs:attribute>
+															<xs:attribute name="ERROR_RATE_UP" type="BER" />
+															<xs:attribute name="ERROR_RATE_DOWN" type="BER" />
+															<xs:attribute name="PROPAGATION_DELAY_DOWN" type="xs:int" />
+															<xs:attribute name="PROPAGATION_DELAY_UP" type="xs:int" />
+															<xs:attribute name="FREQUENCY" type="xs:int" />
+															<xs:attribute name="PATHLOSS_EXPONENT" type="xs:float" use="optional" />
+															<xs:attribute name="PATHLOSS_MATRIX_FILE" type="xs:string" use="optional"/>
+															<xs:attribute name="RANGE" type="xs:float" use="optional"/>
+															<xs:attribute name="FADING_FIGURE" type="xs:float" use="optional" />
+															<xs:attribute name="STANDARD_DEVIATION" type="xs:float" />
+															<xs:attribute name="CHANNEL_NUMBER" type="xs:int" />
+															<xs:attribute name="SPREAD_COEFF" type="xs:float" use="optional"/>
+															<xs:attribute name="CHANNEL_CHARACTERISTICS" type="CHANNEL_CHARACTERISTICS" use="optional"/>
+															<xs:attribute name="PATHLOSS_MODEL">
+																<xs:simpleType>
+																	<xs:restriction base="xs:string">
+																		<xs:enumeration value="FRIIS_FREE_SPACE"/>
+																		<xs:enumeration value="LOG_DISTANCE"/>
+																		<xs:enumeration value="NONE"/>
+																		<xs:enumeration value="COST231HATA_URBAN"/>
+																		<xs:enumeration value="COST231HATA_SUBURBAN"/>
+																		<xs:enumeration value="HATA_URBAN"/>
+																		<xs:enumeration value="HATA_SUBURBAN"/>
+																		<xs:enumeration value="INDOOR_OFFICE"/>
+																		<xs:enumeration value="INDOOR_HOME"/>
+																		<xs:enumeration value="INDOOR_FACTORY"/>
+																		<xs:enumeration value="THORP"/>
+																		<xs:enumeration value="TWO_RAY"/>
+																		<xs:enumeration value="RANGE_BASED"/>
+																		<xs:enumeration value="PATHLOSS_MATRIX_FILE"/>
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:attribute>
+															<xs:attribute name="FADING_MODEL">
+																<xs:simpleType>
+																	<xs:restriction base="xs:string">
+																		<xs:enumeration value="RAYLEIGH"/>
+																		<xs:enumeration value="RICIAN"/>
+																		<xs:enumeration value="NAKAGAMI"/>
+																		<xs:enumeration value="MARKOV_LOO"/>
+																		<xs:enumeration value="NONE"/>
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:attribute>
+															<xs:attribute name="SHADOWING_MODEL">
+																<xs:simpleType>
+																	<xs:restriction base="xs:string">
+																		<xs:enumeration value="NONE"/>
+																		<xs:enumeration value="CONSTANT"/>
+																		<xs:enumeration value="LOGNORMAL"/>
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:attribute>
+															<xs:attribute name="STATE" type="xs:string" use="optional"/>
+
+															<!--NAKAGAMI FADING MODEL-->
+															<xs:attribute name="SHAPE_PARAMETER" type="xs:double" use="optional"/>
+															<xs:attribute name="OMEGA" type="xs:double" use="optional"/>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="LINK_FAILURE" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:attribute name="UPTIME" type="xs:string"/>
+															<xs:attribute name="DOWNTIME" type="xs:string"/>
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="TEMPERATUREZONE" minOccurs="0" maxOccurs="unbounded">
+														<xs:complexType>
+															<xs:attribute name="Z" use="required" type="xs:double"/>
+															<xs:attribute name="TEMPERATURE" use="required" type="xs:double"/>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+												<xs:attribute name="LINK_ID" use="required" type="xs:int" />
+												<xs:attribute name="TYPE" type="LinkType" use="required" />
+												<xs:attribute name="LINK_SPEED_UP" type="xs:string" use="optional" />
+												<xs:attribute name="LINK_SPEED_DOWN" type="xs:string" use="optional" />
+												<xs:attribute name="SAT_TYPE" type="xs:string" use="optional" />
+												<xs:attribute name="CORE_TYPE" type="xs:string" use="optional" />
+												<xs:attribute name="MEDIUM" type="MEDIUM" use="required" />
+												<xs:attribute name="LINK_MODE" type="LinkMode" use="required" />
+												<xs:attribute name="DEVICE_COUNT" type="xs:int" use="optional" />
+												<xs:attribute name="MEDIUM_TYPE" type="xs:string" use="optional" />
+												<xs:attribute name="LINK_NAME" type="xs:string" use="optional" />
+												<xs:attribute name="LINE_TYPE" type="xs:int" use="optional" />
+												<xs:attribute name="LINK_WIDTH" type="xs:float" use="optional" />
+												<xs:attribute name="LINK_COLOR" type="xs:string" use="optional" />
+												<xs:attribute name="X" type="xs:float" use="optional" />
+												<xs:attribute name="Y" type="xs:float" use="optional" />
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+								<xs:unique name="LINK_ID_KEY">
+									<xs:selector xpath="LINK" />
+									<xs:field xpath="@LINK_ID" />
+								</xs:unique>
+							</xs:element>
+							<xs:element name="APPLICATION_CONFIGURATION" minOccurs="0" maxOccurs="1">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="APPLICATION" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:sequence>
+													<!--Peer to Peer application-->
+													<xs:element name="FILE_SIZE" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:attribute name="DISTRIBUTION" type="Distribution" use="required" />
+															<xs:attribute name="VALUE" type="xs:long" use="required" />
+															<xs:attribute name="PIECE_SIZE" type="xs:int" use="optional" />
+														</xs:complexType>
+													</xs:element>
+													<!--Email application-->
+													<xs:element name="EMAIL_RECEIVE" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:attribute name="DURATION_DISTRIBUTION" type="Distribution" use="required" />
+															<xs:attribute name="DURATION" type="xs:int" use="required" />
+															<xs:attribute name="EMAIL_SIZE" type="xs:int" use="required" />
+															<xs:attribute name="EMAIL_SIZE_DISTRIBUTION" type="Distribution" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="EMAIL_SEND" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:attribute name="DURATION_DISTRIBUTION" type="Distribution" use="required" />
+															<xs:attribute name="DURATION" type="xs:float" use="required" />
+															<xs:attribute name="EMAIL_SIZE" type="xs:int" use="required" />
+															<xs:attribute name="EMAIL_SIZE_DISTRIBUTION" type="Distribution" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<!--COAP Application-->
+													<xs:element name="COAP_REQUEST_INTERARRIVAL_TIME" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:attribute name="DISTRIBUTION" type="Distribution" use="required" />
+															<xs:attribute name="VALUE" type="xs:double" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<!--HTTP Application-->
+													<xs:element name="HTTP_REQUEST_INTERARRIVAL_TIME" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:attribute name="DISTRIBUTION" type="Distribution" use="required" />
+															<xs:attribute name="VALUE" type="xs:double" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="PAGE_PROPERTY" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:attribute name="PAGE_SIZE_DISTRIBUTION" type="Distribution" use="required" />
+															<xs:attribute name="PAGE_SIZE" type="xs:int" use="required" />
+															<xs:attribute name="PAGE_COUNT" type="xs:int" use="optional" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="COAP_PROPERTY" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:attribute name="VARIABLE_RESPONSE_TIME" type="xs:int" use="required" />
+															<xs:attribute name="MULTICAST_RESPONSE" type="BOOL" use="required" />
+															<xs:attribute name="NSTART" type="xs:string" use="optional" />
+															<xs:attribute name="DEFAULT_LEISURE" type="xs:string" use="optional" />
+															<xs:attribute name="PROBING_RATE" type="xs:string" use="optional" />
+															<xs:attribute name="ACT_REQUIRED" type="BOOL" use="required" />
+															<xs:attribute name="ACK_RANDOM_FACTOR" type="xs:double" use="optional" />
+															<xs:attribute name="ACK_RESPONSE_TIME" type="xs:int" use="optional" />
+															<xs:attribute name="ACK_TIMEOUT" type="xs:int" use="optional" />
+															<xs:attribute name="MAX_RETRANSMIT" type="xs:int" use="optional" />
+															<xs:attribute name="PIGGYBACKED_TIME" type="xs:int" use="optional" />
+														</xs:complexType>
+													</xs:element>
+													<!--Interactive Gaming Application-->
+													<xs:element name="UL_PACKET_SIZE" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:attribute name="DISTRIBUTION" type="Distribution" use="required" />
+															<xs:attribute name="A_VALUE" type="xs:double" use="required" />
+															<xs:attribute name="B_VALUE" type="xs:double" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="UL_INTER_ARRIVAL_TIME" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:attribute name="DISTRIBUTION" type="Distribution" use="required" />
+															<xs:attribute name="B_VALUE" type="xs:double" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="DL_PACKET_SIZE" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:attribute name="DISTRIBUTION" type="Distribution" use="required" />
+															<xs:attribute name="A_VALUE" type="xs:double" use="required" />
+															<xs:attribute name="B_VALUE" type="xs:double" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="DL_INTER_ARRIVAL_TIME" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:attribute name="DISTRIBUTION" type="Distribution" use="required" />
+															<xs:attribute name="A_VALUE" type="xs:double" use="required" />
+															<xs:attribute name="B_VALUE" type="xs:double" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<!--Video Application-->
+													<xs:element name="MODEL" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:attribute name="BETA_I" type="xs:float" use="optional" />
+															<xs:attribute name="BETA_P" type="xs:float" use="optional" />
+															<xs:attribute name="BETA_B" type="xs:float" use="optional" />
+															<xs:attribute name="ETA_I" type="xs:float" use="optional" />
+															<xs:attribute name="ETA_P" type="xs:float" use="optional" />
+															<xs:attribute name="ETA_B" type="xs:float" use="optional" />
+															<xs:attribute name="GAMMA_I" type="xs:float" use="optional" />
+															<xs:attribute name="GAMMA_P" type="xs:float" use="optional" />
+															<xs:attribute name="GAMMA_B" type="xs:float" use="optional" />
+															<xs:attribute name="QUANTIZATION_LEVELS" type="xs:int" use="optional" />
+															<xs:attribute name="MULTIPLEXED_SOURCES" type="xs:int" use="optional" />
+															<xs:attribute name="CONST_A" type="xs:float" use="optional" />
+															<xs:attribute name="CONST_B" type="xs:float" use="optional" />
+															<xs:attribute name="ETA" type="xs:float" use="optional" />
+															<xs:attribute name="FRAME_PER_SEC" type="xs:int" use="optional" />
+															<xs:attribute name="NAME" type="VideoModel" use="optional" />
+															<xs:attribute name="MODEL_TYPE" type="VideoModel" use="optional" />
+															<xs:attribute name="PIXEL_PER_FRAME" type="xs:int" use="optional" />
+															<xs:attribute name="MU" type="xs:float" use="optional" />
+															<xs:attribute name="SIGMA" type="xs:float" use="optional" />
+														</xs:complexType>
+													</xs:element>
+													<!--Voice Application-->
+													<xs:element name="PACKET_SIZE" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:attribute name="DISTRIBUTION" type="Distribution" use="required" />
+															<xs:attribute name="VALUE" type="xs:int" use="optional" />
+															<xs:attribute name="MIN_VALUE" type="xs:int" use="optional" />
+															<xs:attribute name="MAX_VALUE" type="xs:int" use="optional" />
+															<xs:attribute name="MEAN_VALUE" type="xs:int" use="optional" />
+															<xs:attribute name="STD_DEV_VALUE" type="xs:int" use="optional" />
+															<xs:attribute name="SCALE_PARAMETER" type="xs:int" use="optional" />
+															<xs:attribute name="SHAPE_PARAMETER" type="xs:float" use="optional" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="INTER_ARRIVAL_TIME" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:attribute name="DISTRIBUTION" type="Distribution" use="required" />
+															<xs:attribute name="VALUE" type="xs:double" use="optional" />
+															<xs:attribute name="MIN_VALUE" type="xs:int" use="optional" />
+															<xs:attribute name="MAX_VALUE" type="xs:int" use="optional" />
+															<xs:attribute name="MEAN_VALUE" type="xs:int" use="optional" />
+															<xs:attribute name="STD_DEV_VALUE" type="xs:int" use="optional" />
+														</xs:complexType>
+													</xs:element>
+													<!--Erlang Call application-->
+													<!--Packet size and interarrival time from voice application-->
+													<xs:element name="CALL" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:attribute name="DURATION" type="xs:int" use="required" />
+															<xs:attribute name="DURATION_DISTRIBUTION" type="Distribution" use="required" />
+															<xs:attribute name="INTER_ARRIVAL_TIME" type="xs:float" use="required" />
+															<xs:attribute name="IAT_DISTRIBUTION" type="Distribution" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="SERVICE" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:attribute name="SUCCESS_RATIO" type="xs:float" use="optional" />
+															<xs:attribute name="SPEECH_ACTIVITY_FACTOR" type="xs:float" use="optional" />
+															<xs:attribute name="SUPPRESSION_MODEL" type="xs:string" use="optional" />
+															<xs:attribute name="TALK_SPURT_LENGTH" type="xs:int" use="optional" />
+															<xs:attribute name="TYPE" type="xs:string" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<!--Database Application-->
+													<xs:element name="TRANSACTION_SIZE" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:attribute name="DISTRIBUTION" type="Distribution" use="required" />
+															<xs:attribute name="VALUE" type="xs:int" use="required" />
+														</xs:complexType>
+													</xs:element>
+													<xs:element name="TRANSACTION_INTER_ARRIVAL_TIME" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:attribute name="DISTRIBUTION" type="Distribution" use="required" />
+															<xs:attribute name="VALUE" type="xs:double" use="optional" />
+														</xs:complexType>
+													</xs:element>
+													<!--FTP Application-->
+													<!--File Size from Peer to peer application-->
+													<xs:element name="FILE_INTER_ARRIVAL_TIME" minOccurs="0" maxOccurs="1">
+														<xs:complexType>
+															<xs:attribute name="DISTRIBUTION" type="Distribution" use="required" />
+															<xs:attribute name="VALUE" type="xs:double" use="optional" />
+														</xs:complexType>
+													</xs:element>
+													<!--Emulation Application-->
+													<xs:element name="EMULATION" maxOccurs="1" minOccurs="0">
+														<xs:complexType>
+															<xs:attribute name="SOURCE_REAL_IP" type="IPAddress" use="optional"/>
+															<xs:attribute name="DEVICE_REAL_IP" type="xs:string" use="optional"/>
+															<xs:attribute name="SOURCE_PORT" type="xs:unsignedShort" use="required"/>
+															<xs:attribute name="DESTINATION_REAL_IP" type="IPAddress" use="required"/>
+															<xs:attribute name="DESTINATION_PORT" type="xs:unsignedShort" use="required"/>
+															<xs:attribute name="PROTOCOL" use="optional">
+																<xs:simpleType>
+																	<xs:restriction base="xs:string">
+																		<xs:enumeration value="TCP"/>
+																		<xs:enumeration value="UDP"/>
+																		<xs:enumeration value="ANY"/>
+																	</xs:restriction>
+																</xs:simpleType>
+															</xs:attribute>
+															<xs:attribute name="FILTER_STRING" type="xs:string" use="optional"/>
+														</xs:complexType>
+													</xs:element>
+												</xs:sequence>
+
+												<xs:attribute name ="APPLICATION_METHOD" use="required">
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:enumeration value="UNICAST"/>
+															<xs:enumeration value="MULTICAST"/>
+															<xs:enumeration value="BROADCAST"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+												<xs:attribute name="MULTICAST_DEST_ADDRESS" use="optional" type="IPAddress"/>
+												<xs:attribute name="APPLICATION_TYPE" use="required" type="TrafficType" />
+												<xs:attribute name="APPLICATION_COLOR" use="optional" type="xs:string" />
+												<xs:attribute name="APPLICATION_WIDTH" use="optional" type="xs:float" />
+												<xs:attribute name="PEER_COUNT" use="optional" type="xs:int" />
+												<xs:attribute name="PEER_ID" use="optional" type="xs:string" />
+												<xs:attribute name="SEEDER_COUNT" use="optional" type="xs:int" />
+												<xs:attribute name="SEEDER_ID" use="optional" type="xs:string" />
+												<xs:attribute name="ID" use="optional" type="xs:int" />
+												<xs:attribute name="START_TIME" type="xs:float" use="optional" />
+												<xs:attribute name="END_TIME" type="xs:float" use="optional" />
+												<xs:attribute name="CLIENT_COUNT" type="xs:int" use="optional" />
+												<xs:attribute name="CLIENT_ID" type="xs:string" use="optional" />
+												<xs:attribute name="SHOW_LINE" type="xs:string" use="optional" />
+												<xs:attribute name="SERVER_COUNT" type="xs:int" use="optional" />
+												<xs:attribute name="SERVER_ID" type="xs:string" use="optional" />
+												<xs:attribute name="SOURCE_COUNT" type="xs:int" use="optional" />
+												<xs:attribute name="SOURCE_ID" type="xs:string" use="optional" />
+												<xs:attribute name="DEVICE_COUNT" type="xs:int" use="optional" />
+												<xs:attribute name="DEVICE_ID" type="xs:string" use="optional" />
+												<xs:attribute name="DESTINATION_COUNT" type="xs:int" use="optional" />
+												<xs:attribute name="DESTINATION_ID" type="xs:string" use="optional" />
+												<xs:attribute name="CODEC" type="xs:string" use="optional" />
+												<xs:attribute name="ENCRYPTION" use="optional">
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:enumeration value="NONE"/>
+															<xs:enumeration value="AES"/>
+															<xs:enumeration value="DES"/>
+															<xs:enumeration value="XOR"/>
+															<xs:enumeration value="TEA"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+												<xs:attribute name="NAME" use="optional" type="xs:string"/>
+												<xs:attribute name="RANDOM_WAIT_TIME" use="optional" type="xs:nonNegativeInteger"/>
+												<xs:attribute name="RANDOM_STARTUP" use="optional" type="BOOL"/>
+												<xs:attribute name ="QOS" use="optional">
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:enumeration value="UGS"/>
+															<xs:enumeration value="RTPS"/>
+															<xs:enumeration value="NRTPS"/>
+															<xs:enumeration value="ERTPS"/>
+															<xs:enumeration value="BE"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+												<xs:attribute name="PRIORITY" type="xs:string" use="optional" />
+												<xs:attribute name="PROTOCOL" type="APP_PROTOCOL" use="optional"/>
+												<xs:attribute name="TRANSPORT_PROTOCOL" type="TRANSPORT_PROTOCOL" use="required"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="COUNT" type="xs:int" use="required" />
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="SIMULATION_PARAMETER">
+					<xs:complexType mixed="true">
+						<xs:sequence>
+							<xs:element name="SEED" minOccurs="1">
+								<xs:complexType>
+									<xs:attribute name="SEED1" use="required" type="xs:unsignedInt" />
+									<xs:attribute name="SEED2" use="required" type="xs:unsignedInt" />
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="ANIMATION" minOccurs="0" maxOccurs="1">
+								<xs:complexType>
+									<xs:attribute name="STATUS">
+										<xs:simpleType>
+											<xs:restriction base="xs:string">
+												<xs:enumeration value="ENABLE"/>
+												<xs:enumeration value="DISABLE"/>
+												<xs:enumeration value="ONLINE"/>
+												<xs:enumeration value="OFFLINE"/>
+											</xs:restriction>
+										</xs:simpleType>
+									</xs:attribute>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="INTERACTIVE_SIMULATION" minOccurs="0" maxOccurs="1">
+								<xs:complexType>
+									<xs:attribute name="STATUS" type="BOOL" use="required"/>
+									<xs:attribute name="INPUT_FILE" use="optional" type="xs:string"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+						<xs:attribute name="SIMULATION_EXIT_TYPE" type="xs:string" use="required" />
+						<xs:attribute name="SIMULATION_TIME" type="xs:double" use="required" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="PROTOCOL_CONFIGURATION" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="PROTOCOL" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType mixed="true">
+									<xs:sequence>
+										<xs:element name="STATIC_ARP" minOccurs="0" maxOccurs="1">
+											<xs:complexType>
+												<xs:attribute name="STATUS" type="TwoOption" use="required" />
+												<xs:attribute name="FILE" type="xs:string" use="required" />
+											</xs:complexType>
+										</xs:element>
+										<xs:element name="OFFICE" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:attribute name="ID" type="xs:unsignedByte" use="required"/>
+												<xs:attribute name="NAME" type="xs:string" use="optional"/>
+												<xs:attribute name="X1" type="xs:double" use="required"/>
+												<xs:attribute name="Y1" type="xs:double" use="required"/>
+												<xs:attribute name="X2" type="xs:double" use="required"/>
+												<xs:attribute name="Y2" type="xs:double" use="required"/>
+												<xs:attribute name="FILL_COLOR" type="xs:string" use="optional"/>
+												<xs:attribute name="STROKE_COLOR" type="xs:string" use="optional"/>
+												<xs:attribute name="HEIGHT" type="xs:double" use="optional"/>
+												<xs:attribute name="WIDTH" type="xs:double" use="optional"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="NAME" type="ProtocolName" use="required" />
+									<xs:attribute name="OFFICE_COUNT" type="xs:unsignedByte" use="optional"/>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="STATISTICS_COLLECTION" minOccurs="1" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="PACKET_TRACE" minOccurs="0" maxOccurs="1">
+								<xs:complexType mixed="true">
+									<xs:sequence>
+										<xs:element name="TRACE_FIELD" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:attribute name="NAME" use="optional">
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<!--FOR COMMON PACKET TRACE-->
+															<xs:enumeration value="PACKET_ID" />
+															<xs:enumeration value="SEGMENT_ID" />
+															<xs:enumeration value="PACKET_TYPE" />
+															<xs:enumeration value="CONTROL_PACKET_TYPE" />
+															<xs:enumeration value="SOURCE_ID" />
+															<xs:enumeration value="DESTINATION_ID" />
+															<xs:enumeration value="TRANSMITTER_ID" />
+															<xs:enumeration value="RECEIVER_ID" />
+															<xs:enumeration value="APP_LAYER_ARRIVAL_TIME" />
+															<xs:enumeration value="TRX_LAYER_ARRIVAL_TIME" />
+															<xs:enumeration value="NW_LAYER_ARRIVAL_TIME" />
+															<xs:enumeration value="MAC_LAYER_ARRIVAL_TIME" />
+															<xs:enumeration value="PHY_LAYER_ARRIVAL_TIME" />
+															<xs:enumeration value="PHY_LAYER_START_TIME" />
+															<xs:enumeration value="PHY_LAYER_END_TIME" />
+															<xs:enumeration value="APP_LAYER_PAYLOAD" />
+															<xs:enumeration value="TRX_LAYER_PAYLOAD" />
+															<xs:enumeration value="NW_LAYER_PAYLOAD" />
+															<xs:enumeration value="MAC_LAYER_PAYLOAD" />
+															<xs:enumeration value="PHY_LAYER_PAYLOAD" />
+															<xs:enumeration value="PHY_LAYER_OVERHEAD" />
+															<xs:enumeration value="PACKET_STATUS" />
+															<xs:enumeration value="All_Common_Attributes" />
+															<!--FOR TCP PACKET TRACE-->
+															<xs:enumeration value="LOCAL_ADDRESS" />
+															<xs:enumeration value="REMOTE_ADDRESS" />
+															<xs:enumeration value="CWND" />
+															<xs:enumeration value="SEQ_NO" />
+															<xs:enumeration value="ACK_NO" />
+															<xs:enumeration value="ISSYN" />
+															<xs:enumeration value="ISACK" />
+															<xs:enumeration value="ISFIN" />
+															<xs:enumeration value="SEGMENT_LEN"/>
+															<xs:enumeration value="All_TCP_Attributes" />
+															<!--FOR WLAN PACKET TRACE-->
+															<xs:enumeration value="CW" />
+															<xs:enumeration value="BO_TIME" />
+															<xs:enumeration value="DATARATE" />
+															<xs:enumeration value="RX_POWER" />
+															<xs:enumeration value="RX_SENSITIVITY" />
+															<!-- For IP Packet Trace-->
+															<xs:enumeration value="SOURCE_IP" />
+															<xs:enumeration value="DESTINATION_IP" />
+															<xs:enumeration value="GATEWAY_IP" />
+															<xs:enumeration value="NEXT_HOP_IP" />
+															<!-- Lte NR Packet trace -->
+															<xs:enumeration value="LTENR_PACKET_INFO" />
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+												<xs:attribute name="STATUS" type="TwoOption" use="required" />
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="STATUS" type="TwoOption" use="required" />
+									<xs:attribute name="FILE_NAME" type="xs:string" use="optional" />
+									<xs:attribute name="FILE_PATH" type="xs:string" use="optional" />
+								</xs:complexType>
+								<xs:unique name="TRACE_FIELD_NAME_KEY">
+									<xs:selector xpath="TRACE_FIELD" />
+									<xs:field xpath="@NAME" />
+								</xs:unique>
+							</xs:element>
+							<xs:element name="EVENT_TRACE" maxOccurs="1" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="FILTER">
+											<xs:complexType>
+												<xs:attribute name="INCLUDE_DEVICE" type="xs:string" />
+												<xs:attribute name="EXCLUDE_DEVICE" type="xs:string" />
+												<xs:attribute name="INCLUDE_SUBEVENT" type="xs:string" />
+												<xs:attribute name="EXCLUDE_SUBEVENT" type="xs:string" />
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="STATUS" type="TwoOption" use="required" />
+									<xs:attribute name="FILE_NAME" type="xs:string" use="optional" />
+									<xs:attribute name="FILE_PATH" type="xs:string" use="optional" />
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="METRICS" maxOccurs="unbounded" minOccurs="0">
+								<xs:complexType>
+									<xs:attribute name="PROTOCOL" type="ProtocolName" use="required" />
+									<xs:attribute name="TYPE" type="xs:string" use="required" />
+									<xs:attribute name="VAL" type="xs:string" use="optional" />
+									<xs:attribute name="REALTIME" type="BOOL" use="optional"/>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="PCAP" maxOccurs="1" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="PCAP" minOccurs="0" maxOccurs="unbounded">
+											<xs:complexType>
+												<xs:attribute name="NAME">
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:enumeration value="ALL_NETWORK_PACKETS"/>
+															<xs:enumeration value="DISPATCHED_TO_EMULATOR"/>
+															<xs:enumeration value="REINJECTED_FROM_EMULATOR"/>
+															<xs:enumeration value="NOT_DISPATCHED_TO_EMULATOR"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+												<xs:attribute name="STATUS">
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:enumeration value="LOG_AND_DISPLAY"/>
+															<xs:enumeration value="LOG"/>
+															<xs:enumeration value="DO_NOT_LOG"/>
+															<xs:enumeration value="LOG"/>
+															<xs:enumeration value="DO NOT LOG"/>
+															<xs:enumeration value="LOG AND DISPLAY"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="HARDWARE_INTERFACE" maxOccurs="1" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name ="LINK" minOccurs="1" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="DEVICE" minOccurs="2" maxOccurs="2">
+											<xs:complexType>
+												<xs:attribute name="ID" type="xs:unsignedInt" use="required"/>
+												<xs:attribute name="INTERFACEID" type="xs:unsignedInt" use="required"/>
+												<xs:attribute name="CONNECTION_TYPE" fixed="SOCKET" type="xs:string" use="required"/>
+												<xs:attribute name="PROTOCOL" use="required">
+													<xs:simpleType>
+														<xs:restriction base="xs:string">
+															<xs:enumeration value="TCP"/>
+															<xs:enumeration value="UDP"/>
+														</xs:restriction>
+													</xs:simpleType>
+												</xs:attribute>
+												<xs:attribute name="LOCAL_HOST" use="required" type="IPAddress"/>
+												<xs:attribute name="REMOTE_HOST" use="required" type="IPAddress"/>
+												<xs:attribute name="LOCAL_RX_PORT" use="required" type="xs:unsignedShort"/>
+												<xs:attribute name="REMOTE_RX_PORT" use="required" type="xs:unsignedShort"/>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="MobilityModel">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NO_MOBILITY" />
+			<xs:enumeration value="RANDOM_WALK" />
+			<xs:enumeration value="RANDOM_WAY_POINT" />
+			<xs:enumeration value="FILE_BASED_MOBILITY"/>
+			<xs:enumeration value="GROUP_MOBILITY"/>
+			<xs:enumeration value="SUMO"/>
+			<xs:enumeration value="PEDESTRIAN_MOBILITY"/>
+			<xs:enumeration value="UAV_MOBILITY"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:attributeGroup name="CR_PROPERTY">
+		<xs:attribute name="T20" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="BW_REQUEST_BACOFF_START" type="xs:integer" use="optional" />
+		<xs:attribute name="BW_REQUEST_BACKOFF_END" type="xs:integer" use="optional" />
+		<xs:attribute name="DSX_REQUEST_RETRIES" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="T7" type="xs:integer" use="optional" />
+		<xs:attribute name="T8" type="xs:integer" use="optional" />
+		<xs:attribute name="T14" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="T16" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="T29" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="BLM_REP_RETRIES" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="DATA_SYMBOL_RATE_KBD" type="xs:integer" use="optional" />
+		<xs:attribute name="MAX_FREQUENCY" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="MIN_FREQUENCY" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="CHANNEL_BANDWIDTH" type="xs:float" use="optional" />
+		<xs:attribute name="SAMPLING_FACTOR" type="xs:string" use="optional" />
+		<xs:attribute name="MODULATION" type="xs:string" use="optional" />
+		<xs:attribute name="CODING_RATE" type="xs:string" use="optional" />
+		<xs:attribute name="MULTIPLE_ACCESS" type="xs:string" use="optional" />
+		<!--
+		<xs:attribute name="TX_POWER" type="xs:positiveInteger" use="optional" />
+		-->
+		<xs:attribute name="FFT_SIZE" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="CP_FACTOR" type="xs:string" use="optional" />
+		<xs:attribute name="SELF_COEXISTENCE" type="xs:string" use="optional" />
+		<xs:attribute name="DCD_INTERVAL" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="UCD_INTERVAL" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="UPSTREAM_CHANNEL_CHANGE_RESPONSE_WAIT_TIME" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="TTG" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="DL_UL_RATIO" type="xs:string" use="optional" />
+		<xs:attribute name="INTRA_FRAME_QUIET_PERIOD_CYCLE_LENGTH" type="xs:integer" use="optional" />
+		<xs:attribute name="INTRA_FRAME_QUIET_PERIOD_BITMAP" type="xs:string" use="optional" />
+		<xs:attribute name="INTRA_FRAME_QUIET_PERIOD_DURATION" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="DUPLEXING" type="xs:string" use="optional" />
+		<xs:attribute name="T31" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="CHANNEL_AVAIABILITY_CHECK_TIME" type="xs:integer" use="optional" />
+		<xs:attribute name="NON_OCCUPANCY_PERIOD" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="CHANNEL_DETECTION_TIME" type="xs:integer" use="optional" />
+		<xs:attribute name="PROBABILITY_OF_FALSE_ALRAM" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="CHANNEL_MOVE_TIME" type="xs:integer" use="optional" />
+		<xs:attribute name="NUM_SENSING_PERIOD" type="xs:integer" use="optional" />
+		<xs:attribute name="SENSING_PERIOD_DURATION" type="xs:integer" use="optional" />
+		<xs:attribute name="SENSING_PERIOD_INTERVAL" type="xs:integer" use="optional" />
+		<xs:attribute name="CANDIDATE_CHANNEL_REFRESH_TIME" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="BACKUP_CHANNEL_REFRESH_TIME" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="CANDIDATE_CHANNEL_TRANSITION_TIME" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="WAIT_BEFORE_CHANNEL_MOVE" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="ISO_COUNTRY_CODE" type="xs:string" use="optional" />
+		<xs:attribute name="SENSING_MODE" type="xs:integer" use="optional" />
+		<xs:attribute name="FALSE_ALRAM_PROBABILITY" type="xs:integer" use="optional" />
+		<xs:attribute name="INCUMBENT_COUNT" type="xs:integer" use="optional" />
+		<xs:attribute name="DSX_RESPONSE_RETRIES" type="xs:positiveInteger" />
+		<xs:attribute name="DSX_RESPONSE_RETRIES1" type="xs:positiveInteger" />
+	</xs:attributeGroup>
+	<xs:attributeGroup name="CR_INCUMBENT_PROPERTY">
+		<xs:attribute name="ID" use="required" type="xs:positiveInteger" />
+		<xs:attribute name= "DEVICE_ICON_PATH" use="optional" type="xs:string"/>
+		<xs:attribute name="INCUMBENT_NAME" use="optional" type="xs:string" />
+		<xs:attribute name="OPERATING_FREQUENCY_START" type="xs:positiveInteger" />
+		<xs:attribute name="OPERATING_FREQUENCY_END" type="xs:positiveInteger" />
+		<xs:attribute name="OPERATIONAL_TIME" type="xs:positiveInteger" />
+		<xs:attribute name="OPERATIONAL_DISTRIBUTION" type="Distribution" />
+		<xs:attribute name="KEEP_OUT_DISTANCE" type="xs:positiveInteger" />
+		<xs:attribute name="POS_X" type="xs:float" />
+		<xs:attribute name="POS_Y" type="xs:float" />
+		<xs:attribute name="POS_Z" type="xs:float" />
+		<xs:attribute name="OPERATIONAL_INTERVAL" type="xs:integer" />
+	</xs:attributeGroup>
+
+	<xs:attributeGroup name="WLAN_AC_BK">
+		<xs:attribute name= "dot11QAPEDCATableAIFSN" use="optional" type="xs:int"/>
+		<xs:attribute name="dot11QAPEDCATableCWmax" use="optional" type="xs:int" />
+		<xs:attribute name="dot11QAPEDCATableCWmin" use="optional" type="xs:int" />
+		<xs:attribute name="dot11QAPEDCATableMSDULifetime" use="optional" type="xs:unsignedInt" />
+		<xs:attribute name="dot11QAPEDCATableTXOPLimit" use="optional" type="xs:int" />
+		<xs:attribute name= "dot11EDCATableAIFSN" use="optional" type="xs:int"/>
+		<xs:attribute name="dot11EDCATableCWmax" use="optional" type="xs:int" />
+		<xs:attribute name="dot11EDCATableCWmin" use="optional" type="xs:int" />
+		<xs:attribute name="dot11EDCATableMSDULifetime" use="optional" type="xs:unsignedInt" />
+		<xs:attribute name="dot11EDCATableTXOPLimit" use="optional" type="xs:int" />
+	</xs:attributeGroup>
+	<xs:attributeGroup name="WLAN_AC_BE">
+		<xs:attribute name= "dot11QAPEDCATableAIFSN" use="optional" type="xs:int"/>
+		<xs:attribute name="dot11QAPEDCATableCWmax" use="optional" type="xs:int" />
+		<xs:attribute name="dot11QAPEDCATableCWmin" use="optional" type="xs:int" />
+		<xs:attribute name="dot11QAPEDCATableMSDULifetime" use="optional" type="xs:unsignedInt" />
+		<xs:attribute name="dot11QAPEDCATableTXOPLimit" use="optional" type="xs:int" />
+		<xs:attribute name= "dot11EDCATableAIFSN" use="optional" type="xs:int"/>
+		<xs:attribute name="dot11EDCATableCWmax" use="optional" type="xs:int" />
+		<xs:attribute name="dot11EDCATableCWmin" use="optional" type="xs:int" />
+		<xs:attribute name="dot11EDCATableMSDULifetime" use="optional" type="xs:unsignedInt" />
+		<xs:attribute name="dot11EDCATableTXOPLimit" use="optional" type="xs:int" />
+	</xs:attributeGroup>
+
+	<xs:attributeGroup name="WLAN_AC_VI">
+		<xs:attribute name= "dot11QAPEDCATableAIFSN" use="optional" type="xs:int"/>
+		<xs:attribute name="dot11QAPEDCATableCWmax" use="optional" type="xs:int" />
+		<xs:attribute name="dot11QAPEDCATableCWmin" use="optional" type="xs:int" />
+		<xs:attribute name="dot11QAPEDCATableMSDULifetime" use="optional" type="xs:unsignedInt" />
+		<xs:attribute name="dot11QAPEDCATableTXOPLimit" use="optional" type="xs:int" />
+		<xs:attribute name= "dot11EDCATableAIFSN" use="optional" type="xs:int"/>
+		<xs:attribute name="dot11EDCATableCWmax" use="optional" type="xs:int" />
+		<xs:attribute name="dot11EDCATableCWmin" use="optional" type="xs:int" />
+		<xs:attribute name="dot11EDCATableMSDULifetime" use="optional" type="xs:unsignedInt" />
+		<xs:attribute name="dot11EDCATableTXOPLimit" use="optional" type="xs:int" />
+	</xs:attributeGroup>
+	<xs:attributeGroup name="WLAN_AC_VO">
+		<xs:attribute name= "dot11QAPEDCATableAIFSN" use="optional" type="xs:int"/>
+		<xs:attribute name="dot11QAPEDCATableCWmax" use="optional" type="xs:int" />
+		<xs:attribute name="dot11QAPEDCATableCWmin" use="optional" type="xs:int" />
+		<xs:attribute name="dot11QAPEDCATableMSDULifetime" use="optional" type="xs:unsignedInt" />
+		<xs:attribute name="dot11QAPEDCATableTXOPLimit" use="optional" type="xs:int" />
+		<xs:attribute name= "dot11EDCATableAIFSN" use="optional" type="xs:int"/>
+		<xs:attribute name="dot11EDCATableCWmax" use="optional" type="xs:int" />
+		<xs:attribute name="dot11EDCATableCWmin" use="optional" type="xs:int" />
+		<xs:attribute name="dot11EDCATableMSDULifetime" use="optional" type="xs:unsignedInt" />
+		<xs:attribute name="dot11EDCATableTXOPLimit" use="optional" type="xs:int" />
+	</xs:attributeGroup>
+
+
+	<xs:attributeGroup name="WSN_PROPERTY">
+		<!--Set IEEE802_15_4_Phy_Properties properties-->
+		<xs:attribute name="SINKNODE_ACTION" type="xs:string" use="optional" />
+		<xs:attribute name="FREQUENCYBAND_MHZ" type="xs:unsignedShort" use="optional" />
+		<xs:attribute name="DATARATE_KBPS" type="xs:unsignedByte" use="optional" fixed="250" />
+		<xs:attribute name="CHIPRATE_MCPS" type="xs:unsignedShort" use="optional" fixed="2000" />
+		<xs:attribute name="SYMBOLRATE_KSYMBOLSPS" type="xs:decimal" use="optional" fixed="62.5" />
+		<xs:attribute name="MODULATION_TECHNIQUE" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="O-QPSK"/>
+					<!--WSN-->
+					<xs:enumeration value="BPSK"/>
+					<xs:enumeration value="QPSK"/>
+					<xs:enumeration value="16QAM"/>
+					<xs:enumeration value="64QAM"/>
+					<xs:enumeration value="GMSK"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="MIN_LIFS_PERIOD_SYMBOLS" type="xs:unsignedByte" use="optional" fixed="40" />
+		<xs:attribute name="MIN_SIFS_PERIOD_SYMBOLS" type="xs:unsignedByte" use="optional" fixed="12" />
+		<xs:attribute name="UNIT_BACKOFFTIME_SYMBOLS" type="xs:unsignedByte" use="optional" fixed="20" />
+		<xs:attribute name="TURNAROUNDTIME_SYMBOLS" type="xs:unsignedByte" use="optional" fixed="12" />
+		<xs:attribute name="PHY_SHRDURATION" use="optional" default="3">
+			<xs:simpleType>
+				<xs:restriction base="xs:positiveInteger">
+					<xs:enumeration value="3" />
+					<xs:enumeration value="7" />
+					<xs:enumeration value="10" />
+					<xs:enumeration value="40" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="PHY_SYMBOLPEROCTET" use="optional" default="5.3">
+			<xs:simpleType>
+				<xs:restriction base="xs:decimal">
+					<xs:enumeration value="0.4" />
+					<xs:enumeration value="1.6" />
+					<xs:enumeration value="2" />
+					<xs:enumeration value="8" />
+					<xs:enumeration value="5.3" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="RECEIVER_SENSITIVITY_DBM" type="xs:negativeInteger" use="optional" />
+		<xs:attribute name="EDTHRESHOLD_DBM" type="xs:negativeInteger" use="optional" />
+		<!--Set IEEE802_15_4_Mac_Properties properties-->
+		<xs:attribute name="BEACON_MODE" use="optional" type="TwoOption" />
+		<xs:attribute name="BEACON_ORDER" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:nonNegativeInteger">
+					<xs:maxInclusive value="15" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SUPERFRAME_ORDER" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:nonNegativeInteger">
+					<xs:maxInclusive value="15" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="GTS_PERMIT" use="optional" type="TwoOption" />
+		<xs:attribute name="SUPERFRAME_DURATION_MS" type="xs:decimal" use="optional" fixed="15.36" />
+		<xs:attribute name="BATTERY_LIFE_EXTENSION" type="BOOL" use="optional" />
+		<xs:attribute name="MAX_BE" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:positiveInteger">
+					<xs:maxInclusive value="8" />
+					<xs:minInclusive value="3" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="MIN_BE" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:positiveInteger">
+					<xs:maxInclusive value="8" />
+					<xs:minInclusive value="3" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="MAX_FRAME_RETRIES" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:maxInclusive value="7" />
+					<xs:minInclusive value="0" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="MAX_CSMA_BACKOFF" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:maxInclusive value="5" />
+					<xs:minInclusive value="0" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="UNIT_BACKOFF_PERIOD_SYMBOLS" type="xs:unsignedByte" use="optional" fixed="20" />
+		<xs:attribute name="MIN_CAP_LENGTH_SYMBOLS" type="xs:unsignedShort" use="optional" fixed="440" />
+		<xs:attribute name="ACK_REQUEST" use="optional" type="TwoOption" />
+		<xs:attribute name="GTS_PERSISTENCE_TIME" type="xs:unsignedByte" use="optional" />
+		<!--Set Sensor properties-->
+		<!--<xs:attribute name="MacAddress" type="xs:string" use="optional" />-->
+		<xs:attribute name="AGENT_COUNT" type="xs:positiveInteger" use="optional" />
+	</xs:attributeGroup>
+	<xs:attributeGroup name="WSN_AGENT">
+		<!--Set AgentModel properties-->
+		<xs:attribute name="ID" use="required" type="xs:positiveInteger" />
+		<xs:attribute name="AGENT_ID" use="required" type="xs:positiveInteger" />
+		<xs:attribute name="AGENT_NAME" use="required" type="xs:string" />
+		<xs:attribute name="ICON_PATH" use="optional" type="xs:string" />
+		<xs:attribute name="MOBILITY_MODEL" use="required" type="MobilityModel" />
+		<xs:attribute name="VELOCITY" type="xs:integer" use="required" />
+		<xs:attribute name="CALCULATION_INTERVAL" type="xs:double" use="optional"/>
+		<xs:attribute name="PAUSE_TIME" type="xs:integer" use="optional" />
+		<xs:attribute name="X_OR_LON" use="optional" type="xs:double" />
+		<xs:attribute name="Y_OR_LAT" use="optional" type="xs:double" />
+		<xs:attribute name="X-POS" use="optional" type="xs:double" />
+		<xs:attribute name="Y-POS" use="optional" type="xs:double" />
+		<xs:attribute name="WORKINGAREA_X" use="required" type="xs:positiveInteger" />
+		<xs:attribute name="WORKINGAREA_Y" use="required" type="xs:positiveInteger" />
+	</xs:attributeGroup>
+	<xs:attributeGroup name="WSN_SENSOR">
+		<xs:attribute name="SENSOR_RANGE_M" type="xs:unsignedByte" use="required" />
+		<xs:attribute name="SENSING_INTERVAL" type="xs:positiveInteger" use="optional" />
+	</xs:attributeGroup>
+	<xs:attributeGroup name="WSN_SINKNODE">
+		<xs:attribute name="SINKNODE_ACTION" type="xs:string" use="required" />
+		<xs:attribute name="DATALOGGING" type="TwoOption" use="required" />
+		<xs:attribute name="FILENAME" type="xs:string" use="optional" />
+		<xs:attribute name="FILEPATH" type="xs:string" use="optional" />
+	</xs:attributeGroup>
+	<xs:attributeGroup name="WSN_POWER">
+		<xs:attribute name="SOURCE" use="required">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:pattern value="[Bb][Aa][Tt][Tt][Ee][Rr][Yy]"/>
+					<xs:pattern value="[Mm][Aa][Ii][Nn][Ll][Ii][Nn][Ee]"/>
+					<xs:pattern value="[Mm][Aa][Ii][Nn][_][Ll][Ii][Nn][Ee]"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="ENERGY_HARVESTING" type="ONOFF" use="optional" />
+		<xs:attribute name="RECHARGING_CURRENT_MA" type="xs:string" use="optional" />
+		<xs:attribute name="INITIAL_ENERGY" type="xs:string" use="optional" />
+		<xs:attribute name="VOLTAGE_V" type="xs:string" use="optional" />
+		<xs:attribute name="TRANSMITTING_CURRENT_MA" type="xs:string" use="optional" />
+		<xs:attribute name="RECEIVING_CURRENT_MA" type="xs:string" use="optional" />
+		<xs:attribute name="IDLEMODE_CURRENT_MA" type="xs:string" use="optional" />
+		<xs:attribute name="SLEEPMODE_CURRENT_MA" type="xs:string" use="optional" />
+	</xs:attributeGroup>
+	<xs:attributeGroup name="IP_PROPERTY">
+		<!-- Static IP table-->
+		<xs:attribute name="STATIC_IP" type="xs:string" use="optional" />
+		<xs:attribute name="STATIC_IP_ROUTE" use="optional" type="xs:string"/>
+		<xs:attribute name="STATIC_IP_ROUTE_GUI" type="xs:string" use="optional" />
+
+		<!-- IGMP Property -->
+		<xs:attribute type="BOOL" name="IGMP_STATUS" use="optional"/>
+		<xs:attribute type="xs:positiveInteger" name="QUERY_RESPONSE_INTERVAL" use="optional"/>
+		<xs:attribute type="xs:positiveInteger" name="ROBUSTNESS_VARIABLE" use="optional"/>
+		<xs:attribute type="xs:double" name="QUERY_INTERVAL" use="optional"/>
+		<xs:attribute type="xs:double" name="LAST_MEMBER_QUERY_INTERVAL" use="optional"/>
+		<xs:attribute type="xs:double" name="UNSOLICITED_REPORT_INTERVAL" use="optional"/>
+
+		<!-- PIM Property -->
+		<xs:attribute name="PIM_STATUS" type="BOOL" use="optional"/>
+		<xs:attribute name="HELLO_PERIOD" type="xs:double" use="optional"/>
+		<xs:attribute name="TRIGGERED_HELLO_DELAY" type="xs:double" use="optional"/>
+		<xs:attribute name="DR_PRIORITY" type="xs:positiveInteger" use="optional"/>
+		<xs:attribute name="PROPAGATION_DELAY" type="xs:double" use="optional"/>
+		<xs:attribute name="OVERRIDE_INTERVAL" type="xs:double" use="optional"/>
+		<xs:attribute name="T_PERIODIC" type="xs:double" use="optional"/>
+		<xs:attribute name="PIM_CONFIGURATION" type="xs:string" use="optional" />
+
+		<!--ACL Property-->
+		<xs:attribute name="ACL_CONFIG_FILE" type="xs:string" use="optional" />
+		<xs:attribute name="ACL_STATUS" type="xs:string" use="optional" />
+		<xs:attribute name="ACL_CONFIG_VIA_GUI" type="xs:string" use="optional" />
+
+		<!--ICMP Property-->
+		<xs:attribute name="ICMP_STATUS" type="BOOL" use="optional"/>
+		<xs:attribute name="ICMP_CONTINUOUS_POLLING_TIME" type="xs:int" use="optional" />
+		<xs:attribute name="ROUTER_ADVERTISEMENT" type="BOOL" use="optional" />
+		<xs:attribute name="ROUTER_ADVERTISEMENT_MIN_INTERVAL" type="xs:int" use="optional" />
+		<xs:attribute name="ROUTER_ADVERTISEMENT_MAX_INTERVAL" type="xs:int" use="optional" />
+		<xs:attribute name="ROUTER_ADVERTISEMENT_LIFE_TIME" type="xs:int" use="optional" />
+		<xs:attribute name="PROCESSING_DELAY_US" type="xs:double" use="optional" />
+
+		<!--VPN Property-->
+		<xs:attribute name="VPN_STATUS" type="xs:string" use="optional" />
+		<xs:attribute name="IP_POOL_START" type="xs:string" use="optional" />
+		<xs:attribute name="IP_POOL_END" type="xs:string" use="optional" />
+		<xs:attribute name="IP_POOL_MASK" type="xs:string" use="optional" />
+		<xs:attribute name="SERVER_IP" type="xs:string" use="optional" />
+	</xs:attributeGroup>
+	<xs:attributeGroup name="CELLULAR_PROPERTY">
+		<xs:attribute name="MOBILE_NUMBER" type="xs:string" use="optional" />
+		<xs:attribute name="IMEI_NUMBER" type="xs:string" use="optional" />
+		<xs:attribute name="HANDOVER_TYPE" type="xs:string" use="optional" />
+		<xs:attribute name="BTS_RANGE" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="CHANNEL_DATA_RATE" type="xs:float" use="optional" />
+		<xs:attribute name="CHIP_RATE" type="xs:float" use="optional" />
+		<xs:attribute name="MULTIPLE_ACCESS_TECHNOLOGY" type="xs:string" use="optional" />
+		<xs:attribute name="SPEECH_CODING" type="xs:string" use="optional" />
+		<xs:attribute name="DUPLEX_DISTANCE" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="DUPLEX_TECHNIQUE" type="xs:string" use="optional" />
+		<xs:attribute name="UPLINK_BANDWIDTH_MAX" type="xs:float" use="optional" />
+		<xs:attribute name="DOWNLINK_BANDWIDTH_MAX" type="xs:float" use="optional" />
+		<xs:attribute name="UPLINK_BANDWIDTH_MIN" type="xs:float" use="optional" />
+		<xs:attribute name="DOWNLINK_BANDWIDTH_MIN" type="xs:float" use="optional" />
+		<!--Already defined in other protocol 
+		<xs:attribute name="CHANNEL_BANDWIDTH" type="xs:float" use="optional" />
+		-->
+		<xs:attribute name="TARGET_SNR" type="xs:string" use="optional" />
+		<xs:attribute name="TOTAL_BANDWIDTH" type="xs:float" use="optional" />
+		<xs:attribute name="VOICE_ACTIVITY_FACTOR" type="xs:float" use="optional" />
+		<xs:attribute name="NUMBER_OF_SLOT_IN_EACH_CARRIER" type="xs:positiveInteger" use="optional" />
+	</xs:attributeGroup>
+	<xs:simpleType name="Scheduling_lte">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ROUND_ROBIN"/>
+			<xs:enumeration value="PROPORTIONAL_FAIR"/>
+			<xs:enumeration value="MAX_THROUGHPUT"/>
+			<xs:enumeration value="FAIR_SCHEDULING"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:attributeGroup name="LTE_PROPERTY">
+		<xs:attribute name="SCHEDULING" type="Scheduling_lte" use="optional"/>
+		<xs:attribute name="EWMA_AVERAGING_RATE" type="xs:float" use="optional"/>
+		<xs:attribute name="TRANSMISSION_MODE_INDEX" type="xs:int" use="optional"/>
+		<xs:attribute name="TRANSMISSION_MODE" type="xs:positiveInteger" use="optional"/>
+		<xs:attribute name="TX_ANTENNAS_COUNT" type="xs:positiveInteger" use="optional"/>
+		<xs:attribute name="RX_ANTENNAS_COUNT" type="xs:positiveInteger" use="optional"/>
+		<xs:attribute name="FRAME_DURATION" type="xs:float" use="optional"/>
+		<xs:attribute name="SUB_FRAME_DURATION" type="xs:positiveInteger" use="optional"/>
+		<xs:attribute name="SLOT_DURATION" type="xs:float" use="optional"/>
+		<xs:attribute name="OFDM_SYMBOL_PER_SLOT" type="xs:positiveInteger" use="optional"/>
+		<xs:attribute name="RESOURCE_BLOCK_COUNT" type="xs:positiveInteger" use="optional"/>
+		<xs:attribute name="DUPLEX_SCHEME" type="xs:string" use="optional"/>
+		<xs:attribute name="DL_ACCESS_SCHEME" type="xs:string" use="optional"/>
+		<xs:attribute name="UL_ACCESS_SCHEME" type="xs:string" use="optional"/>
+		<xs:attribute name="SUB_CARRIER_SPACING" type="xs:positiveInteger" use="optional"/>
+		<xs:attribute name="SAMPLING_FREQUENCY" type="xs:float" use="optional"/>
+		<xs:attribute name="OCCUPIED_SUBCARRIER" type="xs:positiveInteger" use="optional"/>
+		<xs:attribute name="GUARD_SUBCARRIER" type="xs:positiveInteger" use="optional"/>
+		<xs:attribute name="D2D_ENABLE" type="BOOL" use="optional"/>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="ADVANCE_LTE_PROPERTY">
+		<!-- <xs:attribute name="CA_TYPE" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="INTRA_BAND_CONTIGUOUS_CA"/>
+					<xs:enumeration value="INTER_BAND_NONCONTIGUOUS_CA"/>
+					<xs:enumeration value="INTRA_BAND_NONCONTIGUOUS_CA"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute> -->
+		<xs:attribute name="CA_CONFIGURATION" use="optional" type="xs:string"/>
+		<xs:attribute name="CA_COUNT" use="optional" type="xs:positiveInteger"/>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="LTE-A_CA">
+		<xs:attribute name="RESOURCE_BLOCK_COUNT" type="xs:positiveInteger" use="required"/>
+		<xs:attribute name="SAMPLING_FREQUENCY" type="xs:float" use="required"/>
+		<xs:attribute name="OCCUPIED_SUBCARRIER" type="xs:positiveInteger" use="required"/>
+		<xs:attribute name="GUARD_SUBCARRIER" type="xs:positiveInteger" use="required"/>
+		<xs:attribute name="FFT_SIZE" type="xs:positiveInteger" use="required" />
+		<xs:attribute name="CHANNEL_BANDWIDTH" type="xs:float" use="required" />
+		<xs:attribute name="DL_FREQUENCY_MAX" type="xs:float" use="required" />
+		<xs:attribute name="DL_FREQUENCY_MIN" type="xs:float" use="required" />
+		<xs:attribute name="UL_FREQUENCY_MAX" type="xs:float" use="required" />
+		<xs:attribute name="UL_FREQUENCY_MIN" type="xs:float" use="required" />
+	</xs:attributeGroup>
+
+	<xs:attributeGroup name="WIMAX_PROPERTY">
+		<xs:attribute name="TRANSMISSION_TYPE" type="xs:string" use="optional" fixed="OFDM"/>
+		<!--Already defined in other protocol 
+		<xs:attribute name="FREQUENCY" type="xs:float" use="optional" default="3.5"/>
+		<xs:attribute name="CHANNEL_BANDWIDTH" type="xs:float" use="optional" />
+		-->
+		<xs:attribute name="DL_FRAME_DURATION" type="xs:double" use="optional"/>
+		<xs:attribute name="USED_SUBCARRIER" type="xs:positiveInteger" use="optional" fixed="200"/>
+		<!--FFT_Size,TTG,Sampling Factor,CP_Factor-->
+		<xs:attribute name="RTG" type="xs:positiveInteger" use="optional" />
+	</xs:attributeGroup>
+	<xs:attributeGroup name="TDMA_PROPERTY">
+		<!-- Already defined in other protocol 
+		<xs:attribute name="SLOT_DURATION" type="xs:float" use="optional"/>
+		 <xs:attribute name="GUARD_INTERVAL" type="xs:float" use="optional"/>
+		 <xs:attribute name="FRAME_DURATION" type="xs:positiveInteger" use="optional"/>
+		-->
+		<xs:attribute name="INTER_FRAME_TIME" type="xs:float" use="optional"/>
+		<xs:attribute name="EPOCHES_DURATION" type="xs:float" use="optional"/>
+		<xs:attribute name="SET_COUNT" type="xs:positiveInteger" use="optional"/>
+		<xs:attribute name="TIME_SLOT_BLOCK_SIZE" type="xs:positiveInteger" use="optional"/>
+		<xs:attribute name="NET_COUNT" type="xs:positiveInteger" use="optional"/>
+		<xs:attribute name="NET_ID" type="xs:positiveInteger" use="optional"/>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="DTDMA_PROPERTY">
+		<!-- Already defined in other protocol 
+		<xs:attribute name="SLOT_DURATION" type="xs:float" use="optional"/>
+		 <xs:attribute name="GUARD_INTERVAL" type="xs:float" use="optional"/>
+		 <xs:attribute name="NET_COUNT" type="xs:positiveInteger" use="optional"/>
+		 <xs:attribute name="NET_ID" type="xs:positiveInteger" use="optional"/>
+		 <xs:attribute name="FRAME_DURATION" type="xs:positiveInteger" use="optional"/>
+		 <xs:attribute name="TX_POWER" type="xs:positiveInteger" use="optional"/>
+		 <xs:attribute name="RECEIVER_SENSITIVITY_DBM" type="xs:integer" use="optional"/>
+		 <xs:attribute name="FREQUENCY" type="xs:positiveInteger" use="optional"/>
+		 <xs:attribute name="BANDWIDTH" type="xs:positiveInteger" use="optional"/>
+		-->
+		<xs:attribute name="OVERHEADS_PER_SLOT" type="xs:positiveInteger" use="optional"/>
+		<xs:attribute name="BITS_PER_SLOT" type="xs:positiveInteger" use="optional"/>
+		<xs:attribute name="LOWER_FREQUENCY" type="xs:positiveInteger" use="optional"/>
+		<xs:attribute name="UPPER_FREQUENCY" type="xs:positiveInteger" use="optional"/>
+		<xs:attribute name="CENTRAL_FREQUENCY_MHZ" type="xs:positiveInteger" use="optional"/>
+		<xs:attribute name="FREQUENCY_HOPPING" type="ONOFF" use="optional"/>
+		<xs:attribute name="BAND" type="HFVHFUHF" use="optional"/>
+		<xs:attributeGroup ref ="FREQUENCY_PROPERTY_GROUP"/>
+		<xs:attributeGroup ref="TX_POWER_PROPERTY_GROUP"/>
+		<xs:attribute name="NETWORK_TYPE" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="AD-HOC"/>
+					<xs:enumeration value="INFRASTRUCTURE"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="FEC_CODING" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="TRUE"/>
+					<xs:enumeration value="FALSE"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="SLOT_ALLOCATION_TECHNIQUE" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="ROUNDROBIN"/>
+					<xs:enumeration value="DEMAND_BASED"/>
+					<xs:enumeration value="FILEBASED"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="DTDMA_SLOT_PLANNER" type="xs:string" use="optional"/>
+		<xs:attribute name="MAX_SLOT_PER_DEVICE" use="optional" type="xs:positiveInteger"/>
+		<xs:attribute name="MIN_SLOT_PER_DEVICE" use="optional" type="xs:integer"/>
+
+	</xs:attributeGroup>
+	<xs:attributeGroup name="ALOHA_PROPERTY">
+		<xs:attributeGroup ref ="DATA_RATE_PROPERTY_GROUP"/>
+		<xs:attribute name="SLOT_LENGTH" type="xs:double" use="optional"/>
+	</xs:attributeGroup>
+
+	<xs:attributeGroup name="VANET_PROPERTY">
+		<xs:attribute name="SECONDARY_PROTOCOL" type="ProtocolName" use="optional"/>
+		<xs:attribute name="STANDARD_CHANNEL_SCH" type="xs:string" use="optional" />
+		<xs:attribute name="STANDARD_CHANNEL_CCH" type="xs:string" use="optional" />
+		<xs:attribute name="SCH_TIME" type="xs:unsignedInt" use="optional"/>
+		<xs:attribute name="CCH_TIME" type="xs:unsignedInt" use="optional"/>
+		<xs:attribute name="GUARD_TIME" type="xs:unsignedInt" use="optional"/>
+		<xs:attribute name="RETRY_LIMIT" type="xs:integer" use="optional" />
+		<xs:attribute name="RTS_THRESHOLD" type="xs:integer" use="optional" />
+		<xs:attribute name ="IEEE802.11e" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Enable"/>
+					<xs:enumeration value="Disable"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:attributeGroup>
+
+	<xs:attributeGroup name="IEEE802_11_PROPERTY">
+		<!--IEEE802.11 PHY PROPERTY-->
+		<xs:attribute name="TX_TYPE" type="xs:string" use="optional" />
+		<xs:attribute name="CHANNEL_NUMBER" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="STANDARD_CHANNEL" type="xs:string" use="optional" />
+		<xs:attribute name="SLOT_TIME" type="xs:double" use="optional" />
+		<xs:attribute name="SIFS" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="DIFS" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="CW_MIN" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="CW_MAX" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="STANDARD" type="xs:string" use="optional" />
+		<xs:attribute name="TRANSMITTING_ANTENNAS" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="RECEIVING_ANTENNAS" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="GUARD_INTERVAL" type="xs:string" use="optional" />
+		<xs:attribute name="FREQUENCY_BAND" type="xs:float" use="optional" />
+		<xs:attribute name="RATE_ADAPTATION" use="optional">
+			<xs:simpleType>
+				<xs:union>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:enumeration value ="GENERIC"/>
+							<xs:enumeration value="MINSTREL"/>
+							<xs:enumeration value="FALSE"/>
+						</xs:restriction>
+					</xs:simpleType>
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:pattern value="[Ff][Aa][Ll][Ss][Ee]"/>
+							<xs:pattern value="[Tt][Rr][Uu][Ee]"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:union>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="ED_THRESHOLD" type="xs:double" use="optional"/>
+		<!--IEEE802.11 MAC PROPERTY-->
+		<xs:attribute name="NUM_OF_AGGREGATED_PACKETS" type="xs:positiveInteger" use="optional" />
+		<xs:attribute name="dot11ShortRetryLimit" type="xs:integer" use="optional" />
+		<xs:attribute name="dot11LongRetryLimit" type="xs:integer" use="optional" />
+		<xs:attribute name="DOT11LONG_RETRYLIMIT" type="xs:integer" use="optional" />
+		<xs:attribute name="DOT11SHORT_RETRYLIMIT" type="xs:integer" use="optional" />
+		<xs:attribute name="DOT11_RTSTHRESHOLD" type="xs:integer" use="optional" />
+		<xs:attribute name="IS_MAC_BUFFER" type="xs:string" use="optional" />
+		<xs:attribute name="PHYSICAL_NAME" type="xs:string" use="optional" />
+		<xs:attribute name="dot11RTSThreshold" type="xs:nonNegativeInteger" use="optional" />
+		<xs:attribute name="BSS_TYPE" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="INFRASTRUCTURE"/>
+					<xs:enumeration value="MESH"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name ="MEDIUM_ACCESS_PROTOCOL" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="DCF"/>
+					<xs:enumeration value="EDCAF"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="dot11OCBActivated" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="TRUE"/>
+					<xs:enumeration value="FALSE"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="PHYSICAL_TYPE" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="OFDM"/>
+					<xs:enumeration value="DSSS"/>
+					<xs:enumeration value="HT"/>
+					<xs:enumeration value="VHT"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="COMMON_MAC_PHY_PROPERTY">
+		<xs:attribute name="CCA_MODE" use="optional" default="CARRIER_SENSE_ONLY">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="CARRIER_SENSE_ONLY" />
+					<xs:enumeration value="ENERGY_DETECTION" />
+					<xs:enumeration value="CARRIER_SENSE_WITH_ENERGY_DETECTION" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="CONNECTION_MEDIUM" use="optional" type="MEDIUM" />
+		<xs:attribute name="ANTENNA_HEIGHT" use="optional" type="xs:double"/>
+		<xs:attribute name="ANTENNA_GAIN" use="optional" type="xs:double"/>
+		<xs:attribute name="D0" use="optional" type="xs:double"/>
+		<xs:attribute name="PL_D0" use="optional" type="xs:double"/>
+		<xs:attributeGroup ref="BANDWIDTH_PROPERTY_GROUP"/>
+		<xs:attributeGroup ref ="FREQUENCY_PROPERTY_GROUP"/>
+		<xs:attributeGroup ref="TX_POWER_PROPERTY_GROUP"/>
+	</xs:attributeGroup>
+
+	<xs:attributeGroup name="RPL_PROPERTY">
+		<xs:attribute name="INSTANCE_ID" use="optional" type="xs:unsignedInt"/>
+		<xs:attribute name="NODE_TYPE" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="ROUTER"/>
+					<xs:enumeration value="LEAF"/>
+					<xs:enumeration value="ROOT"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="DAO_DELAY" use="optional" type="xs:double"/>
+		<xs:attribute name="DIS_INITIAL_DELAY" use="optional" type="xs:double"/>
+		<xs:attribute name="DIS_INTERVAL" use="optional" type="xs:double"/>
+		<xs:attribute name="DIOIntervalDoublings" use="optional" type="xs:double"/>
+		<xs:attribute name="DIOIntervalMin" use="optional" type="xs:double"/>
+		<xs:attribute name="DIORedundancyConstant" use="optional" type="xs:double"/>
+		<xs:attribute name="MinHopRankIncrease" use="optional" type="xs:double"/>
+		<xs:attribute name="DODAGPreference" use="optional" type="xs:double"/>
+	</xs:attributeGroup>
+
+	<xs:element name="PROTOCOL_PROPERTY">
+		<!-- ADD ELEMENT FOR PROTOCOL PROPERTY-->
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="INCUMBENT" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attributeGroup ref="CR_INCUMBENT_PROPERTY" />
+					</xs:complexType>
+				</xs:element>
+
+				<xs:element name="AC_BK" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attributeGroup ref="WLAN_AC_BK" />
+					</xs:complexType>
+				</xs:element>
+
+				<xs:element name="AC_BE" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attributeGroup ref="WLAN_AC_BE" />
+					</xs:complexType>
+				</xs:element>
+
+				<xs:element name="AC_VI" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attributeGroup ref="WLAN_AC_VI" />
+					</xs:complexType>
+				</xs:element>
+
+				<xs:element name="AC_VO" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attributeGroup ref="WLAN_AC_VO" />
+					</xs:complexType>
+				</xs:element>
+
+				<!-- IEEE802.15.4 PHY and MAC PROPERTY-->
+				<xs:element name="POWER" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attributeGroup ref="WSN_POWER" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="SENSOR" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attributeGroup ref="WSN_SENSOR" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="AGENT" minOccurs="0" maxOccurs="100">
+					<xs:complexType>
+						<xs:attributeGroup ref="WSN_AGENT" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="SINK_NODE" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:attributeGroup ref="WSN_SINKNODE" />
+					</xs:complexType>
+				</xs:element>
+				<!-- <xs:element name="CA" minOccurs="0" maxOccurs="5">
+					<xs:complexType>
+						<xs:attributeGroup ref ="LTE-A_CA"/>
+					</xs:complexType>
+				</xs:element> -->
+
+				<xs:group ref="LTE_NR_ELEMENT"/>
+
+
+				<xs:group ref ="SATELLITE_PHY_ELEMENT"/>
+				<xs:element ref ="PROTOCOL_PROPERTY" minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+			<!-- ETHERNET PHY PROPERTY-->
+			<xs:attribute name="ETHERNET_STANDARD" type="xs:string" use="optional" />
+			<xs:attribute name="CONNECTION_MODE" use="optional" type="Connection_Mode" />
+			<xs:attribute name="LINK_TYPE" type="MEDIUM" use="optional" />
+			<xs:attribute name="CONNECTED_TO" use="optional"/>
+			<xs:attribute name="MAC_ADDRESS" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:token">
+						<xs:pattern value="[0-9a-fA-F]+" />
+						<xs:length value="12" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="ISNSAENABLE" type="xs:string" use="optional" />
+			<xs:attribute name="SELECTED_OPTION_TYPE" type="xs:string" use="optional" />
+			<xs:attribute name="MASTER_NODE_TYPE" type="xs:string" use="optional" />
+			<xs:attribute name="SECONDERY_NODE_TYPE" type="xs:string" use="optional" />
+			<!-- ETHERNET MAC PROPERTY-->
+			<xs:attribute name ="IGMP_SNOOPING" type="BOOL" use="optional"/>
+			<xs:attribute name="VLAN_STATUS" type="BOOL" use="optional"/>
+			<xs:attribute name="VLAN_NAME" type="xs:string" use="optional" />
+			<xs:attribute name="VLAN_GUI" type="xs:string" use="optional" />
+			<xs:attribute name ="VLAN_ID" type="xs:positiveInteger" use="optional"/>
+			<xs:attribute name="VLAN_PORT_TYPE" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="ACCESS_PORT"/>
+						<xs:enumeration value="TRUNK_PORT"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="ICMP_STATUS" type="BOOL" use="optional"/>
+			<xs:attribute name="PROMISCUOUS_MODE" type="BOOL" use="optional"/>
+			<xs:attribute name ="SPT_STATUS" type="BOOL" use="optional"/>
+			<xs:attribute name="BUFFER_SIZE" type="xs:float" use="optional" />
+			<xs:attribute name="SWITCH_ID" type="xs:string" use="optional" />
+			<xs:attribute name="SWITCHING_TECHNIQUE" type="xs:string" use="optional" />
+			<xs:attribute name="SPANNING_TREE_PROTOCOL" type="xs:string" use="optional" />
+			<xs:attribute name="SPEED" type="xs:string" use="optional" />
+			<xs:attribute name="SWITCHING_LATENCY" type="xs:float" use="optional" />
+			<xs:attribute name="COST" type="xs:integer" use="optional" />
+			<xs:attribute name="SWITCH_PRIORITY" type="xs:positiveInteger" use="optional" />
+			<xs:attribute name="PERSISTANCE" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:token">
+						<xs:pattern value="1/[1-9]"/>
+						<xs:pattern value="1/1[0-5]"/>
+						<xs:pattern value="1"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="ERROR_RATE" use="optional" type="xs:double"/>
+			<!--Common Mac and Phy Property-->
+			<xs:attributeGroup ref="COMMON_MAC_PHY_PROPERTY"/>
+			<!--ARP PROPERTY-->
+			<xs:attribute name="ARP_RETRY_INTERVAL" type="xs:positiveInteger" use="optional" />
+			<xs:attribute name="ARP_RETRY_LIMIT" type="xs:positiveInteger" use="optional" />
+
+			<!--IEEE802.11 Property-->
+			<xs:attributeGroup ref="IEEE802_11_PROPERTY"/>
+			<!--IEEE802.22 Property-->
+			<xs:attributeGroup ref="CR_PROPERTY" />
+			<!-- IEEE802.15.4 PHY and MAC PROPERTY-->
+			<xs:attributeGroup ref="WSN_PROPERTY" />
+			<!--CELLULAR PROPERTY-->
+			<xs:attributeGroup ref="CELLULAR_PROPERTY" />
+			<!--LTE Property-->
+			<xs:attributeGroup ref="LTE_PROPERTY"/>
+			<xs:attributeGroup ref="ADVANCE_LTE_PROPERTY"/>
+			<!--LTE-NR Property-->
+			<xs:attributeGroup ref="LTE_NR_PROPERTY"/>
+			<!--WIMAX Property-->
+			<xs:attributeGroup ref="WIMAX_PROPERTY"/>
+			<!-- TDMA property-->
+			<xs:attributeGroup ref="TDMA_PROPERTY"/>
+			<xs:attributeGroup ref ="DTDMA_PROPERTY"/>
+			<!-- Aloha property-->
+			<xs:attributeGroup ref="ALOHA_PROPERTY"/>
+			<!--VANET Property-->
+			<xs:attributeGroup ref="VANET_PROPERTY"/>
+			<!--SATELLITE Property-->
+			<xs:attributeGroup ref="SATELLITE_MAC_PROPERTY"/>
+			<xs:attributeGroup ref="SATELLITE_PHY_PROPERTY"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:attributeGroup name="OSPFPROPERTY">
+		<xs:attribute name="ROUTER_PRIORITY" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:integer">
+					<xs:minInclusive value="0" />
+					<xs:maxInclusive value="255" />
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="LS_REFRESH_TIME" use="optional" type="xs:nonNegativeInteger" />
+		<xs:attribute name="MINLSINTERVAL" use="optional" type="xs:double"/>
+		<xs:attribute name="SPFCALCDELAY" use="optional" type="xs:double"/>
+		<xs:attribute name="LSAMAXAGE" use="optional" type="xs:unsignedShort"/>
+		<xs:attribute name="FLOODTIMER" use="optional" type="xs:double"/>
+		<xs:attribute name="ISADVERTISESELFINTERFACE" use="optional" type="BOOL"/>
+		<xs:attribute name="ISSENDDELAYEDUPDATE" use="optional" type="BOOL"/>
+		<xs:attribute name="MAXAGEREMOVALTIME" use="optional" type="xs:double"/>
+		<xs:attribute name="INCREMENTAGE" use="optional" type="xs:double"/>
+	</xs:attributeGroup>
+	<xs:attributeGroup name="OSPF_INTERFACE_PROPERTY">
+		<xs:attribute name="NAME" type="xs:string" use="optional"/>
+		<xs:attribute name="TYPE" use="optional">
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="POINT_TO_POINT"/>
+					<xs:enumeration value="BROADCAST"/>
+					<xs:enumeration value="NBMA"/>
+					<xs:enumeration value="POINT_TO_MULTIPOINT"/>
+					<xs:enumeration value="VIRTUAL_LINK"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="ISOSPFRUN" type="BOOL" use="required"/>
+		<xs:attribute name="ID" type="xs:positiveInteger"/>
+		<xs:attribute name="AREAID" type="IPAddress" use="optional"/>
+		<xs:attribute name="HELLOINTERVAL" type="xs:double" use="optional"/>
+		<xs:attribute name="ROUTERDEADINTERVAL" type="xs:double" use="optional"/>
+		<xs:attribute name="ROUTERPRIORITY" type="xs:unsignedByte" use="optional"/>
+		<xs:attribute name="RXMTINTERVAL" type="xs:double" use="optional"/>
+		<xs:attribute name="OUTPUTCOST" type="xs:unsignedShort" use="optional"/>
+		<xs:attribute name="EXTERNALROUTINGCAPABILITY" type="BOOL" use="optional"/>
+		<xs:attribute name="LSAMAXAGE" type="xs:unsignedShort" use="optional"/>
+		<xs:attribute name="ISINCLUDESUBNETROUTE" type="BOOL" use="optional"/>
+	</xs:attributeGroup>
+
+	<xs:attributeGroup name="BANDWIDTH_PROPERTY_GROUP">
+		<!-- default unit protocol dependent. Not recommended to use -->
+		<xs:attribute name="BANDWIDTH" type="xs:double" use="optional" />
+
+		<xs:attribute name ="BANDWIDTH_MHZ" type="xs:double" use="optional"/>
+		<xs:attribute name ="BANDWIDTH_KHZ" type="xs:double" use="optional"/>
+		<xs:attribute name ="BANDWIDTH_HZ" type="xs:double" use="optional"/>
+	</xs:attributeGroup>
+
+	<xs:attributeGroup name="DATA_RATE_PROPERTY_GROUP">
+		<!-- default unit protocol dependent. Not recommended to use -->
+		<xs:attribute name="DATA_RATE" type="xs:double" use="optional" />
+
+		<xs:attribute name ="DATA_RATE_MBPS" type="xs:double" use="optional"/>
+		<xs:attribute name ="DATA_RATE_KBPS" type="xs:double" use="optional"/>
+		<xs:attribute name ="DATA_RATE_BPS" type="xs:double" use="optional"/>
+	</xs:attributeGroup>
+
+	<xs:attributeGroup name="FREQUENCY_PROPERTY_GROUP">
+		<!-- default unit protocol dependent. Not recommended to use -->
+		<xs:attribute name="FREQUENCY" type="xs:double" use="optional" />
+
+		<xs:attribute name ="FREQUENCY_GHZ" type="xs:double" use="optional"/>
+		<xs:attribute name ="FREQUENCY_MHZ" type="xs:double" use="optional"/>
+		<xs:attribute name ="FREQUENCY_KHZ" type="xs:double" use="optional"/>
+		<xs:attribute name ="FREQUENCY_HZ" type="xs:double" use="optional"/>
+	</xs:attributeGroup>
+
+	<xs:attributeGroup name="TX_POWER_PROPERTY_GROUP">
+		<!-- default unit protocol dependent. Not recommended to use -->
+		<xs:attribute name="TX_POWER" type="xs:double" use="optional" />
+
+		<xs:attribute name ="TX_POWER_MW" type="xs:double" use="optional"/>
+		<xs:attribute name ="TX_POWER_W" type="xs:double" use="optional"/>
+		<xs:attribute name ="TX_POWER_DBM" type="xs:double" use="optional"/>
+		<xs:attribute name ="TX_POWER_DB" type="xs:double" use="optional"/>
+	</xs:attributeGroup>
+</xs:schema>
